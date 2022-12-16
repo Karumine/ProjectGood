@@ -96,8 +96,8 @@ export default function LoginScreen({ navigation }) {
     });
 
     const textInputChange = (val) => {
-            console.log("กี่ตัว : ",val.lenght);
-        if (val.lenght != 0 ) {
+        console.log("กี่ตัว : ", val.lenght);
+        if (val.lenght != 0) {
             setData({
                 ...data,
                 email: val,
@@ -124,7 +124,7 @@ export default function LoginScreen({ navigation }) {
         });
     }
 
-    console.log("data",data.check_textInputChange);
+    console.log("data", data.check_textInputChange);
 
     return (
         <View style={styles.container}>
@@ -147,9 +147,9 @@ export default function LoginScreen({ navigation }) {
                         placeholder="Your Email"
                         style={styles.textInput}
                         autoCapitalize="none"
-                        onChangeText={(val) =>{ textInputChange(val)}}
+                        onChangeText={(val) => { textInputChange(val) }}
                     />
-                    {data.check_textInputChange  ?
+                    {data.check_textInputChange ?
                         <Animatable.View
                             animation="bounceIn"
                         >
@@ -195,20 +195,20 @@ export default function LoginScreen({ navigation }) {
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity onPress={() =>navigation.navigate('Fotgot')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Fotgot')}>
                     <Text style={{ color: '#009387', marginTop: 15 }}>Forgot password</Text>
                 </TouchableOpacity>
                 <View style={styles.button}>
                     <TouchableOpacity onPress={() => navigation.navigate('AllScreen')}
-                    style={[styles.textSignin,]}>
-                    <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.textSignin}>
-                        
+                        style={[styles.textSignin,]}>
+                        <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.textSignin}>
+
                             <Text style={[styles.textSign, {
                                 color: '#fff'
                             }]}>Sign In</Text>
-                        
-                    </LinearGradient>
-</TouchableOpacity>
+
+                        </LinearGradient>
+                    </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('SignUp')}
                         style={[styles.textSignin, {
                             borderColor: '#009387',

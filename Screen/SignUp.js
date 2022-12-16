@@ -254,7 +254,7 @@ export default function SignUpScreen({ navigation }) {
                         placeholder="Phone Number"
                         style={styles.textInput}
                         autoCapitalize="none"
-                        onChange={(val) => textInputChange(val)}
+                        onChangeText={(val) => textInputChange(val)}
                         maxLength={10}
                     />
                     {data.check_textInputChange ?
