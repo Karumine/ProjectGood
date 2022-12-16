@@ -11,7 +11,7 @@ export default function AllScreen() {
   return (
 
         <Text>asdasdasd
-
+asdasdqwsd adededededeaqdeaswdeasedaseaseaseaseaseaseaeasesdasdasdasdasdasd
         </Text>
 
   );
