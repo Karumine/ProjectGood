@@ -10,8 +10,7 @@ const Stack = createNativeStackNavigator();
 export default function AllScreen() {
   return (
 
-        <Text>asdasdasd
-
+        <Text>asdasdasdsdfasdfadeaswdeaswdsw
         </Text>
 
   );
