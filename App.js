@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,25 +7,64 @@ import SignInScreen from './Screen/SignIn';
 import SignUpScreen from './Screen/SignUp';
 import ForgotScreen from './Screen/Forgot';
 import AllScreen from './Screen/AllScreen';
+import { firebase } from './Screen/components/SignUp';
+import React, { useEffect, useState } from "react";
+
 const Stack = createNativeStackNavigator();
 
 function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false
-        }}
-      >
-        <Stack.Screen name="First" component={FirstScreen} />
-        <Stack.Screen name="SignIn" component={SignInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Fotgot" component={ForgotScreen} />
-        <Stack.Screen name="AllScreen" component={AllScreen} />
-      </Stack.Navigator>
 
-    </NavigationContainer>
-  );
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+  function onAuthStateChanged(user) {
+    setUser(user)
+    if (initializing) setInitializing(false)
+  }
+  useEffect(() => {
+    const fechdata = async () => {
+      const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged)
+      if (user) {
+        console.log('ถ้ามีคน login');
+      }
+      else {
+        console.log('ถ้าไม่มีคน login');
+      }
+      return subscriber
+    }
+    fechdata()
+  })
+  if (initializing)
+  return null
+  if(!user){
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false
+          }}
+        >
+          <Stack.Screen name="First" component={FirstScreen} />
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="Fotgot" component={ForgotScreen} />
+          {/* <Stack.Screen name="AllScreen" component={AllScreen} /> */}
+        </Stack.Navigator>
+
+      </NavigationContainer>
+    );
+  }
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false
+          }}
+        >
+          <Stack.Screen name="AllScreen" component={AllScreen} />
+        </Stack.Navigator>
+
+      </NavigationContainer>
+    );
 }
 
 export default App;

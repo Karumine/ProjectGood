@@ -8,13 +8,13 @@ import * as Animatable from 'react-native-animatable';
 import AllScreen from "./AllScreen";
 import { LinearGradient } from 'expo-linear-gradient';
 //import { AutoContext } from "./component/context";
-
+import { firebase } from './components/SignUp';
 //const { signIn } = React.useContext(AutoContext);
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#009387'
+        backgroundColor: '#FF0000'
     },
     header: {
         flex: 1,
@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     text_footer: {
-        color: '#05375a',
+        color: '#FF0000',
         fontSize: 18
     },
     action: {
         flexDirection: 'row',
         marginTop: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#f2f2f2',
+        borderBottomColor: '#FF0000',
         paddingBottom: 5
     },
     textInput: {
@@ -67,12 +67,21 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
-export default function LoginScreen({ navigation }) {
+export default function SignInScreen({ navigation }) {
     const Navigation = useNavigation()
-    const [addID, setID] = useState("")
-    const [addPassword, setPassword] = useState("")
     const { height } = Dimensions.get("screen");
     const height_logo = height * 0.28;
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const gotologin = async() => {
+        try{
+            await firebase.auth().signInWithEmailAndPassword(email, password)
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
     const gotoAllScreen = () => {
         navigation.navigate("AllScreen")
     }
@@ -85,12 +94,8 @@ export default function LoginScreen({ navigation }) {
         navigation.navigate("ForgotScreen")
     }
 
-    // console.log("setID=", addID);
-    // console.log("setPassword=", addPassword);
-
     const [data, setData] = React.useState({
-        email: '',
-        addPassword: '',
+        
         check_textInputChange: false,
         secureTextEntry: true
     });
@@ -128,7 +133,7 @@ export default function LoginScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor='#009387' barStyle="light-content" />
+            <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
             <View style={styles.header}>
                 <Text style={styles.text_header}>Welcome!</Text>
             </View>
@@ -140,14 +145,14 @@ export default function LoginScreen({ navigation }) {
                 <View style={styles.action}>
                     <FontAwesome
                         name="user-o"
-                        color="#05375a"
+                        color="#FF0000"
                         size={20}
                     />
                     <TextInput
                         placeholder="Your Email"
                         style={styles.textInput}
                         autoCapitalize="none"
-                        onChangeText={(val) => { textInputChange(val) }}
+                        onChangeText={(val) => setEmail(val)}
                     />
                     {data.check_textInputChange ?
                         <Animatable.View
@@ -166,7 +171,7 @@ export default function LoginScreen({ navigation }) {
                 <View style={styles.action}>
                     <Feather
                         name="lock"
-                        color="#05375a"
+                        color="#FF0000"
                         size={20}
                     />
                     <TextInput
@@ -174,7 +179,7 @@ export default function LoginScreen({ navigation }) {
                         secureTextEntry={data.secureTextEntry ? true : false}
                         style={styles.textInput}
                         autoCapitalize="none"
-                        onChangeText={(val) => handlePasswordChange(val)}
+                        onChangeText={(val) => setPassword(val)}
                     />
                     <TouchableOpacity
                         onPress={updateSecureTextEntry}
@@ -182,13 +187,13 @@ export default function LoginScreen({ navigation }) {
                         {data.secureTextEntry ?
                             <Feather
                                 name="eye-off"
-                                color="grey"
+                                color="red"
                                 size={20}
                             />
                             :
                             <Feather
                                 name="eye"
-                                color="grey"
+                                color="red"
                                 size={20}
                             />
                         }
@@ -196,12 +201,12 @@ export default function LoginScreen({ navigation }) {
                 </View>
 
                 <TouchableOpacity onPress={() => navigation.navigate('Fotgot')}>
-                    <Text style={{ color: '#009387', marginTop: 15 }}>Forgot password</Text>
+                    <Text style={{ color: '#FF0000', marginTop: 15 }}>Forgot password</Text>
                 </TouchableOpacity>
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={() => navigation.navigate('AllScreen')}
+                    <TouchableOpacity onPress={() => gotologin()}
                         style={[styles.textSignin,]}>
-                        <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.textSignin}>
+                        <LinearGradient colors={['#FF0066', '#FF0000']} style={styles.textSignin}>
 
                             <Text style={[styles.textSign, {
                                 color: '#fff'
@@ -211,14 +216,14 @@ export default function LoginScreen({ navigation }) {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('SignUp')}
                         style={[styles.textSignin, {
-                            borderColor: '#009387',
+                            borderColor: '#FF0000',
                             borderWidth: 1,
                             marginTop: 15
                         }]}
                     >
                         <Text style={[styles.textSign, {
-                            color: '#009387'
-                        }]}>Sign up</Text>
+                            color: '#FF0000'
+                        }]}>Register</Text>
                     </TouchableOpacity>
 
                 </View>

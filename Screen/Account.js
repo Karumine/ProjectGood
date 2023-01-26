@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, StatusBar, Dimensions, TextInput, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar, Dimensions, TextInput } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import * as Animatable from 'react-native-animatable';
 import { FontAwesome } from '@expo/vector-icons';
 import { firebase } from './components/SignUp'
 import { useFocusEffect } from '@react-navigation/native';
-import banner from '../../ProjectGood/assets/banner.jpg'
-
+import { LinearGradient } from 'expo-linear-gradient';
+import SignInScreen from './SignIn';
 const Tab = createMaterialBottomTabNavigator();
 const { height } = Dimensions.get("screen");
-const height_logo = height * 0.6;
+const height_logo = height * 1;
 
 const styles = StyleSheet.create({
     container: {
@@ -18,22 +18,21 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
+        alignItems: 'center',
         paddingHorizontal: 20,
-        paddingBottom: 50,
-
-        borderTopRightRadius: 30,
+        paddingBottom: 50
     },
     footer: {
         flex: 3,
         backgroundColor: '#fff',
-        paddingVertical: 50,
-        paddingHorizontal: 30,
+        borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        borderTopLeftRadius: 30
+        paddingVertical: 50,
+        paddingHorizontal: 30
     },
     text_header: {
-        color: '#fff',
+        color: '#000',
         fontWeight: 'bold',
         fontSize: 30
     },
@@ -73,20 +72,46 @@ const styles = StyleSheet.create({
     }
 });
 
-export default function HomeScreen() {
+export default function AccountScreen() {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
             <View style={styles.header}>
-                <Image source={banner} style={styles.logo}
-                /> 
-
+                <Text>Welcome</Text>
             </View>
+
             <Animatable.View
                 animation="fadeInUpBig"
                 style={styles.footer}
             >
 
+                <View style={styles.button}>
+                    <TouchableOpacity onPress={() => navigation.navigate('AllScreen')}
+                        style={[styles.textSignin,]}>
+                        <LinearGradient colors={['#FF0066', '#FF0000']} style={styles.textSignin}>
+
+                            <Text style={[styles.textSign, {
+                                color: '#fff'
+                            }]}>ผู้ใช้</Text>
+
+                        </LinearGradient>
+                    </TouchableOpacity>
+
+                </View>
+
+                <View style={styles.button}>
+                    <TouchableOpacity onPress={() => firebase.auth().signOut()}
+                        style={[styles.textSignin,]}>
+                        <LinearGradient colors={['#FF0066', '#FF0000']} style={styles.textSignin}>
+
+                            <Text style={[styles.textSign, {
+                                color: '#fff'
+                            }]}>Log out</Text>
+
+                        </LinearGradient>
+                    </TouchableOpacity>
+
+                </View>
             </Animatable.View>
         </View>
     );
