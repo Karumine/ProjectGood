@@ -1,34 +1,39 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, StatusBar, Dimensions, TextInput } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, Dimensions, TextInput, Image, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import * as Animatable from 'react-native-animatable';
-import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { firebase } from './components/SignUp'
+import { useFocusEffect } from '@react-navigation/native';
+import banner from '../../ProjectGood/assets/banner.jpg'
+
 
 const Tab = createMaterialBottomTabNavigator();
 const { height } = Dimensions.get("screen");
-const height_logo = height * 0.53;
-
-
-
+const height_logo = height * 0.6;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#009387'
+        backgroundColor: '#FF0000'
+    },
+
+    tinyLogo: {
+        width: 400,
+        height: 100,
     },
     header: {
         flex: 1,
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingBottom: 50
+        justifyContent: 'flex-start',
+        paddingBottom: 50,
+
+        borderTopRightRadius: 30,
     },
     footer: {
-        flex: 5,
+        flex: 1,
         backgroundColor: '#fff',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        paddingVertical: 50,
-        paddingHorizontal: 30
+        paddingVertical: 30,
+        paddingHorizontal:30
     },
     text_header: {
         color: '#fff',
@@ -65,44 +70,54 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
-    logo: {
-        width: height_logo,
-        height: height_logo
-    }
+
 });
 
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+console.log('เท่าไหร่', WIDTH);
 export default function HomeScreen() {
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor='#009387' barStyle="light-content" />
-            <View style={styles.header}>
-                <Animatable.Image
-                    animation="bounceIn"
-                    duraton="15000"
-                    source={require('./../assets/aaa.jpg')}
-                    //style={styles.logo}
-                    resizeMode="stretch"
-                />
-            </View>
+            <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
+
             <Animatable.View
                 animation="fadeInUpBig"
                 style={styles.footer}
             >
+                <View style={{alignItems:'flex-end'}}>
+                  
                 
-                
-                <View style={styles.action}>
-                    <FontAwesome
-                        name="search"
-                        color="#05375a"
-                        size={20}
-                    />
-                    <TextInput
-                        placeholder="Search Restaurants"
-                        style={styles.textInput}
-                        autoCapitalize="none"
-                    />
+                <TouchableOpacity>
+                    <MaterialIcons name="account-circle" size={60} color="red" />
+                </TouchableOpacity>
+ </View> 
 
+
+
+                {/* <Image
+                    style={{  margin:20,borderWidth: 1, borderRadius: 25,width:560, height:150 }}
+                    source={banner}
+                /> */}
+
+
+
+                <Text style={{ marginTop: 60, fontSize: 30 }}>Restaurant</Text>
+
+                <View style={{ flexDirection: 'row' }}>
+                    <ScrollView
+                        horizontal={true}
+                    >
+                        <TouchableOpacity style={{ borderWidth: 1, backgroundColor: '#FF0000', marginVertical: 50, padding: 20, marginRight: 40, borderRadius: 100 }}>
+                            <MaterialCommunityIcons name="table-chair" size={40} color="black" />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ borderWidth: 1, backgroundColor: '#FF0000', marginVertical: 50, marginRight: 40, padding: 20, borderRadius: 100 }}>
+                            <MaterialIcons name="delivery-dining" size={40} color="black" />
+                        </TouchableOpacity>
+                    </ScrollView>
                 </View>
+
+
             </Animatable.View>
         </View>
     );

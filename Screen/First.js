@@ -4,6 +4,9 @@ import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons, FontAwesome, AntDesign } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
+import {firebase} from './components/SignUp'
+import { doc, getDoc } from "firebase/firestore";
+
 
 const styles = StyleSheet.create({
     container: {
@@ -61,10 +64,24 @@ const styles = StyleSheet.create({
     }
 
 });
+
+
 export default function FirstScreen({ navigation }) {
+
+//     const db=firebase.firestore()
+//     const dataRestuarant= async()=>{
+//         const docRef = doc(db, "Restuarant", "Loading");
+//         const docSnap = await getDoc(docRef);
+//         if (docSnap.exists()) {
+//           console.log("Document data:", docSnap.data());
+//         } else {
+//           // doc.data() will be undefined in this case
+//           console.log("No such document!");
+//         }
+// }
+    
     const Navigation = useNavigation()
-    const [addID, setID] = useState("")
-    const [addPassword, setPassword] = useState("")
+
     const { height } = Dimensions.get("screen");
     const height_logo = height * 0.28;
     const gotoAllScreen = () => {
@@ -82,8 +99,7 @@ export default function FirstScreen({ navigation }) {
     const gotoLogin = () => {
         navigation.navigate("SignIn")
     }
-    console.log("setID=", addID);
-    console.log("setPassword=", addPassword);
+  
     return (
         <View style={styles.container}>
             <View style={styles.header}>
