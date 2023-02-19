@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, StatusBar, Dimensions, TextInput, Image, TouchableOpacity, Keyboard } from 'react-native';
+import { View, Text,TouchableWithoutFeedback, StyleSheet, StatusBar, Dimensions, TextInput, Image, TouchableOpacity, Keyboard } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import * as Animatable from 'react-native-animatable';
 import { FontAwesome } from '@expo/vector-icons';
@@ -95,10 +95,9 @@ const styles = StyleSheet.create({
     }
 });
 
-const Home = () => {
+const HomeScreenOwner = () => {
     const todoRef = firebase.firestore().collection('Karumine');
     const [addData, setAddData] = useState('');
-    const [addData2, setAddData2] = useState('');
 
     // add new field
     const addField = () => {
@@ -126,6 +125,7 @@ const Home = () => {
     }
 
     return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={{ flex: 1, justifyContent: 'center' }}>
             <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
 
@@ -136,7 +136,7 @@ const Home = () => {
                 <View style={styles.formContainer}>
                     <TextInput
                         style={styles.input}
-                        placeholder='ชื่ออาหาร'
+                        placeholder='ชื่อร้านอาหาร'
                         placeholderTextColor='#aaaaaa'
                         onChangeText={(NameFood) => setAddData(NameFood)}
                         value={addData}
@@ -152,7 +152,8 @@ const Home = () => {
                 </TouchableOpacity>
             </Animatable.View>
         </View>
+        </TouchableWithoutFeedback>
     );
 }
 
-export default Home
+export default HomeScreenOwner

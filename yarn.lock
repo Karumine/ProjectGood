@@ -6250,6 +6250,11 @@ react-native-paper@^5.0.2:
     color "^3.1.2"
     use-event-callback "^0.1.0"
 
+react-native-rainbow-background@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-rainbow-background/-/react-native-rainbow-background-0.1.0.tgz#69fe9d49a196132b21ba4081df8e9c134485afd7"
+  integrity sha512-GUobc4aygyasONmqCJKZnlzMjrNx4fP7r7Pa3uPTt5X27YTUAofqzcrd1eE8/SMtYQ9NSfIidz0CSvtPQwF89Q==
+
 react-native-ratings@^6.3.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-6.5.0.tgz#a1606ccba3c5b54eec8e6cfa4765a45cf0e4ab8d"

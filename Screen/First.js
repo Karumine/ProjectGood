@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderWidth: 4,
         borderColor: "black",
-        borderRadius: 100,
+        borderRadius: 40,
         backgroundColor: "#CC00FF",
         color: "#FFFFFF",
         textAlign: "center",

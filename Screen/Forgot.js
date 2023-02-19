@@ -159,7 +159,7 @@ export default function ForgotScreen({ navigation }) {
 
                 <View style={styles.button}>
                     <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.textSignin}>
-                        <TouchableOpacity onPress={() => navigation.navigate('AllScreen')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
                             <Text style={[styles.textSign, {
                                 color: '#fff'
                             }]}>Submit</Text>

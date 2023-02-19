@@ -76,9 +76,16 @@ const styles = StyleSheet.create({
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 console.log('เท่าไหร่', WIDTH);
+
+const App = () => (
+    <RainbowBackground style={{ flex: 1 }} />
+  );
+
 export default function HomeScreen() {
     return (
+        
         <View style={styles.container}>
+           
             <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
 
             <Animatable.View
@@ -119,6 +126,8 @@ export default function HomeScreen() {
 
 
             </Animatable.View>
+            
         </View>
+        
     );
 }
