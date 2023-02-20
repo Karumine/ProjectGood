@@ -10,18 +10,17 @@ import AccountOwnerScreen from './AccountOwner';
 import Feather from 'react-native-vector-icons/Feather';
 import HomeOwner from './HomeOwner';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import HomeScreen from './home';
 
-const COLOR = {
-  red: '#E81514',
-  white: '#ffffff',
-  lightGray: {
-    1: 'rgb(250,250,250)',
-    2: 'rgb(247,247,247)',
-  },
-  gray: 'rgb(200,202,205)',
-  black: 'rgb(46,46,46)',
-  yellow: 'rgb(253,238,208)',
-  darkYellow: '#e4b056',
+
+const COLORS = {
+  white: '#FFF',
+  dark: '#000',
+  primary: '#FF0000',
+  secondary: '#fedac5',
+  light: '#E5E5E5',
+  grey: '#908e8c',
 };
 
 
@@ -33,79 +32,82 @@ const TabBarButton = ({ children, onPress }) => {
   );
 };
 
-const Tab = createMaterialBottomTabNavigator();
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#5359D1',
-    alignItem: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    top: -30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonView: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: COLOR.red,
-  },
-  shadow: {
-    shadowColor: COLOR.gray,
-    shadowOffset: {
-      width: 0,
-      height: 7.5,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 3.5,
-    elevation: 5,
-  },
-})
+const Tab = createBottomTabNavigator();
 
-const AppNavigation = ({ navigation }) => {
+
+const AllOwnerScreen = () => {
   return (
-
     <Tab.Navigator
-      initialRouteName="Home"
-      activeColor="#e91e63"
-      barStyle={{ backgroundColor: '#FF0000' }}
-    >
+      tabBarOptions={{
+        style: {
+          height: 55,
+          borderTopWidth: 0,
+          elevation: 0,
+        },
+        showLabel: false,
+        activeTintColor: COLORS.primary,
+      }}>
       <Tab.Screen
-        name="home"
+        name="HomeScreen"
         component={HomeScreenOwner}
         options={{
-          tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="home" color={color} size={26} />
+            <Icon name="home-filled" color={color} size={28} />
           ),
         }}
       />
-
+      <Tab.Screen
+        name="LocalMall"
+        component={HomeScreenOwner}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon name="local-mall" color={color} size={28} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Search"
         component={HomeScreenOwner}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Feather name="plus" size={26} color={color} />
+          tabBarIcon: () => (
+            <View
+              style={{
+                height: 60,
+                width: 60,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: COLORS.white,
+                borderColor: COLORS.primary,
+                borderWidth: 2,
+                borderRadius: 30,
+                top: -25,
+                elevation: 5,
+              }}>
+              <Icon name="search" color={COLORS.primary} size={28} />
+            </View>
           ),
         }}
       />
-
       <Tab.Screen
-        name="Account"
-        component={AccountOwnerScreen}
+        name="Favorite"
+        component={HomeScreenOwner}
         options={{
-          tabBarLabel: 'Account',
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="user" color={color} size={26} />
+            <Icon name="favorite" color={color} size={28} />
           ),
         }}
       />
-
+      <Tab.Screen
+        name="Cart"
+        component={HomeScreenOwner}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon name="shopping-cart" color={color} size={28} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
 
-export default AppNavigation;
+export default AllOwnerScreen;

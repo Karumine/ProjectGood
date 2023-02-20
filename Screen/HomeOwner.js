@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text,TouchableWithoutFeedback, StyleSheet, StatusBar, Dimensions, TextInput, Image, TouchableOpacity, Keyboard } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, StyleSheet, StatusBar, Dimensions, TextInput, Image, TouchableOpacity, Keyboard } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import * as Animatable from 'react-native-animatable';
 import { FontAwesome } from '@expo/vector-icons';
@@ -9,6 +9,7 @@ import banner from '../../ProjectGood/assets/banner.jpg'
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
+import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 const Tab = createMaterialBottomTabNavigator();
 const { height } = Dimensions.get("screen");
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const HomeScreenOwner = () => {
+const HomeScreenOwner = ({ navigation }) => {
     const todoRef = firebase.firestore().collection('Karumine');
     const [addData, setAddData] = useState('');
 
@@ -126,32 +127,39 @@ const HomeScreenOwner = () => {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-            <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+                <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
 
-            <Animatable.View
-                animation="fadeInUpBig"
+                <Animatable.View
+                    animation="fadeInUpBig"
 
-            >
-                <View style={styles.formContainer}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='ชื่อร้านอาหาร'
-                        placeholderTextColor='#aaaaaa'
-                        onChangeText={(NameFood) => setAddData(NameFood)}
-                        value={addData}
-                        multiline={true}
-                        underlineColorAndroid='transparent'
-                        autoCapitalize='none'
-                    />
+                >
+                    <View style={{ alignItems: 'flex-end' }}>
 
-                </View>
 
-                <TouchableOpacity style={styles.button} onPress={addField}>
-                    <Text style={styles.buttonText}>Add</Text>
-                </TouchableOpacity>
-            </Animatable.View>
-        </View>
+                        <TouchableOpacity onPress={() => navigation.navigate('AccountOwnerScreen')}>
+                            <MaterialIcons name="account-circle" size={60} color="red" />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.formContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder='ชื่อร้านอาหาร'
+                            placeholderTextColor='#aaaaaa'
+                            onChangeText={(NameFood) => setAddData(NameFood)}
+                            value={addData}
+                            multiline={true}
+                            underlineColorAndroid='transparent'
+                            autoCapitalize='none'
+                        />
+
+                    </View>
+
+                    <TouchableOpacity style={styles.button} onPress={addField}>
+                        <Text style={styles.buttonText}>Add</Text>
+                    </TouchableOpacity>
+                </Animatable.View>
+            </View>
         </TouchableWithoutFeedback>
     );
 }

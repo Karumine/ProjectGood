@@ -11,6 +11,8 @@ import { firebase } from './Screen/components/SignUp';
 import React, { useEffect, useState } from "react";
 import AllScreenOwner from './Screen/AllScreenOwner';
 import AllScreenUser from './Screen/AllScreenUser';
+import AccountUserScreen from './Screen/AccountUser';
+import AccountOwnerScreen from './Screen/AccountOwner';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +67,9 @@ function App() {
           <Stack.Screen name="AllScreen" component={AllScreen} />
           <Stack.Screen name="AllScreenOwner" component={AllScreenOwner} />
           <Stack.Screen name="AllScreenUser" component={AllScreenUser} />
+          <Stack.Screen name="AccountUserScreen" component={AccountUserScreen} />
+          <Stack.Screen name="AccountOwnerScreen" component={AccountOwnerScreen} />
+          
         </Stack.Navigator>
 
       </NavigationContainer>

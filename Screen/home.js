@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         paddingVertical: 30,
-        paddingHorizontal:30
+        paddingHorizontal: 30
     },
     text_header: {
         color: '#fff',
@@ -73,41 +73,24 @@ const styles = StyleSheet.create({
 
 });
 
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
-console.log('เท่าไหร่', WIDTH);
-
-const App = () => (
-    <RainbowBackground style={{ flex: 1 }} />
-  );
-
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
     return (
-        
+
         <View style={styles.container}>
-           
+
             <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
 
             <Animatable.View
                 animation="fadeInUpBig"
                 style={styles.footer}
             >
-                <View style={{alignItems:'flex-end'}}>
-                  
-                
-                <TouchableOpacity>
-                    <MaterialIcons name="account-circle" size={60} color="red" />
-                </TouchableOpacity>
- </View> 
+                <View style={{ alignItems: 'flex-end' }}>
 
 
-
-                {/* <Image
-                    style={{  margin:20,borderWidth: 1, borderRadius: 25,width:560, height:150 }}
-                    source={banner}
-                /> */}
-
-
+                    <TouchableOpacity onPress={() => navigation.navigate('AccountUserScreen')}>
+                        <MaterialIcons name="account-circle" size={60} color="red" />
+                    </TouchableOpacity>
+                </View>
 
                 <Text style={{ marginTop: 60, fontSize: 30 }}>Restaurant</Text>
 
@@ -126,8 +109,8 @@ export default function HomeScreen() {
 
 
             </Animatable.View>
-            
+
         </View>
-        
+
     );
 }
