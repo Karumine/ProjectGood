@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, StatusBar, TouchableWithoutFeedback, Keyboard, Dimensions, SafeAreaView, TextInput, Image, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, TouchableHighlight, TouchableWithoutFeedback, Keyboard, Dimensions, SafeAreaView, TextInput, Image, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import * as Animatable from 'react-native-animatable';
 import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
@@ -7,6 +7,11 @@ import { firebase } from './components/SignUp';
 import { useFocusEffect } from '@react-navigation/native';
 import banner from '../../ProjectGood/assets/banner.jpg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+
+const { width } = Dimensions.get("screen");
+const cardWidth = width / 2 - 20;
+
 const COLOR = {
     white: '#FFF',
     dark: '#000',
@@ -15,6 +20,47 @@ const COLOR = {
     light: '#E5E5E5',
     grey: '#908e8c',
 };
+
+const categories = [
+    { id: '1', name: 'ร้านที่จองได้', image: require('../assets/sandwich-burger.png') },
+    { id: '2', name: 'สั่งกับบ้าน', image: require('../assets/sandwich-burger.png') },
+    { id: '3', name: 'Sushi', image: require('../assets/sandwich-burger.png') },
+    { id: '4', name: 'Restaurant', image: require('../assets/sandwich-burger.png') },
+    { id: '5', name: 'Restaurant', image: require('../assets/sandwich-burger.png') },
+
+
+];
+
+const foods = [
+    {
+        id: '1',
+        name: 'ร้านชายหนึ่ง',
+        ingredients: 'นนทบุรี',
+        price: 'สถานะ ว่าง',
+        image: require('../assets/Res1.jpg'),
+    },
+    {
+        id: '2',
+        name: 'ร้านชายสอง',
+        ingredients: 'Cheese Pizza',
+        price: 'สถานะ ว่าง',
+        image: require('../assets/Res2.jpg'),
+    },
+    {
+        id: '3',
+        name: 'ร้านชายสาม',
+        ingredients: 'Fried Chicken',
+        price1: 'สถานะ ไม่ว่าง',
+        image: require('../assets/Res3.jpg'),
+    },
+    {
+        id: '4',
+        name: 'ร้านชายสี่',
+        ingredients: 'Salmon Meat',
+        price: 'สถานะ ว่าง',
+        image: require('../assets/Res4.jpg'),
+    },
+];
 
 const Tab = createMaterialBottomTabNavigator();
 const { height } = Dimensions.get("screen");
@@ -55,9 +101,42 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     categoriesListContainer: {
-        paddingVertical:30,
-        alignItems:'center',
-        paddingHorizontal:20,
+        paddingVertical: 30,
+        alignItems: 'center',
+        paddingHorizontal: 20,
+    },
+    categoryBtn: {
+        height: 45,
+        width: 140,
+        marginRight: 7,
+        borderRadius: 30,
+        alignItems: 'center',
+        paddingHorizontal: 5,
+        flexDirection: 'row',
+    },
+    categoryBtnImgCon: {
+        height: 35,
+        width: 35,
+        backgroundColor: COLOR.white,
+        borderRadius: 30,
+    },
+    card: {
+        height: 220,
+        width: cardWidth,
+        marginHorizontal: 10,
+        marginBottom: 20,
+        marginTop: 50,
+        borderRadius: 15,
+        elevation: 13,
+        backgroundColor: COLOR.secondary,
+    },
+    addtoCartBtn: {
+        height: 30,
+        width: 30,
+        borderRadius: 20,
+        backgroundColor: COLOR.primary,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     footer: {
         flex: 1,
@@ -104,16 +183,89 @@ const styles = StyleSheet.create({
 export default function HomeScreen({ navigation }) {
     const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
 
-    const ListCategaries = () => {
+    const ListCategories = () => {
         return (
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                contextContainerStyle={styles.categoriesListContainer}>
-                    
-                </ScrollView>
+                contentContainerStyle={styles.categoriesListContainer}>
+                {categories.map((category, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        activeOpacity={0.8}
+                        onPress={() => setSelectedCategoryIndex(index)}>
+                        <View
+                            style={{
+                                backgroundColor:
+                                    selectedCategoryIndex == index
+                                        ? COLOR.primary
+                                        : COLOR.secondary,
+                                ...styles.categoryBtn,
+                            }}>
+                            <View style={styles.categoryBtnImgCon}>
+                                <Image
+                                    source={category.image}
+                                    style={{ height: 34, width: 34, resizeMode: 'cover' }}
+                                />
+                            </View>
+                            <Text
+                                style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    marginLeft: 10,
+                                    color:
+                                        selectedCategoryIndex == index
+                                            ? COLOR.white
+                                            : COLOR.primary,
+                                }}>
+                                {category.name}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                ))}
+            </ScrollView>
         );
     };
+
+    const Card = ({ food }) => {
+        return (
+            <TouchableHighlight
+                underlayColor={COLOR.white}
+                activeOpacity={0.9}
+                onPress={() => navigation.navigate('DetailsScreen', food)}>
+                <View style={styles.card}>
+                    <View style={{ alignItems: 'center', }}>
+                        <Image source={food.image} style={{ height: 120, width: '100%' }} />
+                    </View>
+                    <View style={{ marginHorizontal: 20 }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{food.name}</Text>
+                        <Text style={{ fontSize: 14, color: COLOR.grey, marginTop: 2 }}>
+                            {food.ingredients}
+                        </Text>
+                    </View>
+                    <View
+                        style={{
+                            marginTop: 10,
+                            marginHorizontal: 20,
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                        }}>
+                        
+                            <Text style={{ fontSize: 18, fontWeight: 'bold', color: "green" }}>
+                                {food.price}
+
+                            </Text>
+
+                            <Text style={{ fontSize: 18, fontWeight: 'bold', color: "red", justifyContent: 'flex-start' }}>
+                                {food.price1}
+                            </Text>
+
+                    </View>
+                </View>
+            </TouchableHighlight>
+        );
+    };
+
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.white }}>
@@ -155,7 +307,15 @@ export default function HomeScreen({ navigation }) {
                             <Icon name="tune" size={28} color={COLOR.white} />
                         </View>
                     </View>
-
+                    <View>
+                        <ListCategories />
+                    </View>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        numColumns={2}
+                        data={foods}
+                        renderItem={({ item }) => <Card food={item} />}
+                    />
                 </Animatable.View>
             </SafeAreaView>
         </TouchableWithoutFeedback>

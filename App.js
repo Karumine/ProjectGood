@@ -13,6 +13,7 @@ import AllScreenOwner from './Screen/AllScreenOwner';
 import AllScreenUser from './Screen/AllScreenUser';
 import AccountUserScreen from './Screen/AccountUser';
 import AccountOwnerScreen from './Screen/AccountOwner';
+import DetailsScreen from './Screen/DetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -69,6 +70,7 @@ function App() {
           <Stack.Screen name="AllScreenUser" component={AllScreenUser} />
           <Stack.Screen name="AccountUserScreen" component={AccountUserScreen} />
           <Stack.Screen name="AccountOwnerScreen" component={AccountOwnerScreen} />
+          <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
           
         </Stack.Navigator>
 
