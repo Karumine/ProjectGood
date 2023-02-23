@@ -1,5 +1,5 @@
-import React from "react";
-import { SafeAreaView, StyleSheet, FlatList, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
+import React, { useState } from "react";
+import { SafeAreaView, StyleSheet, FlatList, Modal,Pressable, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -137,6 +137,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    modalBackGround: {
+        flex: 1,
+        backgroundColor: "rgb(0,0,0,0.5)",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalContainer: {
+        width: "80%",
+        backgroundColor: 'white',
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        borderRadius: 20,
+        elevation: 20,
+    },
 });
 
 const foods = [
@@ -172,8 +186,15 @@ const foods = [
         id: '5',
         name: 'ผัดถั่วงอกใส่เต้าหู้',
         //ingredients: 'Salmon Meat',
-        price: '40 บาท',
-        image: require('../assets/Res4.jpg'),
+        price: '50 บาท',
+        image: require('../assets/food5.jpg'),
+    },
+    {
+        id: '6',
+        name: 'เมี่ยงปลาดอลลี่ + น้ำจิ้มซีฟู้ด',
+        //ingredients: 'Salmon Meat',
+        price: '60 บาท',
+        image: require('../assets/food6.jpg'),
     },
 ];
 
@@ -185,7 +206,7 @@ const Card = ({ food }) => {
             onPress={() => navigation.navigate('DetailsScreen', food)}>
             <View style={styles.card}>
                 <View style={{ alignItems: 'center', marginBottom: 10 }}>
-                    <Image source={food.image} style={{ height: 120, width: 120 }} />
+                    <Image source={food.image} style={{ height: 150, width: 150 }} />
                 </View>
                 <View style={{ alignItems: 'center', marginHorizontal: 20 }}>
                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{food.name}</Text>
@@ -211,8 +232,9 @@ const Card = ({ food }) => {
 
 const DetailsScreen = ({ navigation, route }) => {
     const item = route.params;
-
+    const [modalVisible, setModalVisible] = useState(false);
     return (
+
         <SafeAreaView style={{ backgroundColor: COLOR.white }}>
             <View style={styles.header}>
                 <Icon name="arrow-back-ios" size={28} onPress={navigation.goBack} />
@@ -249,21 +271,40 @@ const DetailsScreen = ({ navigation, route }) => {
                         โดยโว้กบิวตี้เอามาฝากกันถึง 30 เมนูดีต่อใจ ดีต่อร่างกาย
                         เป็นไอเดียให้ทุกคนได้อิ่มอร่อยกับอาหารเพื่อสุขภาพวันละอย่างไม่ซ้ำกันตลอดทั้งเดือน
                     </Text>
-                            <FlatList
-                                showsVerticalScrollIndicator={false}
-                                numColumns={2}
-                                data={foods}
-                                renderItem={({ item }) => <Card food={item} />}
-                            />
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        numColumns={2}
+                        data={foods}
+                        renderItem={({ item }) => <Card food={item} />}
+                    />
+
                     <View style={{ marginTop: 40, marginBottom: 40 }}>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                                Alert.alert('Modal has been closed.');
+                                setModalVisible(!modalVisible);
+                            }}>
+                            <View style={styles.centeredView}>
+                                <View style={styles.modalView}>
+                                    <Text style={styles.modalText}>Hello</Text>
+                                    <Pressable
+                                        style={[styles.button, styles.buttonClose]}
+                                        onPress={() => setModalVisible(!modalVisible)}>
+                                        <Text style={styles.textStyle}>Hide</Text>
+                                    </Pressable>
+                                </View>
+                            </View>
+                        </Modal>
                         <SecondaryButton title="จอง" />
+
                     </View>
+
                 </View>
             </ScrollView>
         </SafeAreaView>
     );
-
 };
-
-
 export default DetailsScreen;
