@@ -10,6 +10,7 @@ import LoginScreen from "./SignIn";
 import { LinearGradient } from 'expo-linear-gradient';
 import { auth } from './components/SignUp'
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
+import { firebase } from './components/SignUp'
 
 const styles = StyleSheet.create({
     container: {
@@ -73,9 +74,19 @@ export default function SignUpScreen({ navigation }) {
 
     const gotoSignUp = () => {
         const auth = getAuth();
-        createUserWithEmailAndPassword(auth, email, password).then((credentials) => {
+        createUserWithEmailAndPassword(auth, email, password).then(async credentials => {
             console.log(credentials);
             console.log(credentials.user);
+            console.log('create', credentials.user);
+            firebase.firestore().collection('users').doc(credentials.user.uid).set({
+                email:email,
+            
+            });
+            console.log('uid555', credentials.user.uid);
+            await firebase.firestore().collection('users').doc(credentials.user.uid)
+                .update({
+                    "foods": firebase.firestore.FieldValue.arrayUnion()
+                })
         }).catch((err) => {
             console.error(err);
         })

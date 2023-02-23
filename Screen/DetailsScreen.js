@@ -1,28 +1,27 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, FlatList, Modal,Pressable, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, FlatList, Modal, Pressable, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
-
-const PrimaryButton = ({ title, onPress = () => { } }) => {
-    return (
-        <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-            <View style={styles.btnContainer}>
-                <Text style={styles.title}>{title}</Text>
-            </View>
-        </TouchableOpacity>
-    );
-};
-const SecondaryButton = ({ title, onPress = () => { } }) => {
-    return (
-        <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-            <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
-                <Text style={{ ...styles.title, color: COLOR.primary }}>{title}</Text>
-            </View>
-        </TouchableOpacity>
-    );
-};
+// const PrimaryButton = ({ title, onPress = () => { } }) => {
+//     return (
+//         <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
+//             <View style={styles.btnContainer}>
+//                 <Text style={styles.title}>{title}</Text>
+//             </View>
+//         </TouchableOpacity>
+//     );
+// };
+// const SecondaryButton = ({ title, onPress = () => { } }) => {
+//     return (
+//         <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
+//             <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
+//                 <Text style={{ ...styles.title, color: COLOR.primary }}>{title}</Text>
+//             </View>
+//         </TouchableOpacity>
+//     );
+// };
 
 
 const COLOR = {
@@ -233,8 +232,37 @@ const Card = ({ food }) => {
 const DetailsScreen = ({ navigation, route }) => {
     const item = route.params;
     const [modalVisible, setModalVisible] = useState(false);
-    return (
+    const openmodal = () => {
+            return (
+                <>
+            <View >
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert('Modal has been closed.');
+                        setModalVisible(!modalVisible);
+                    }}>
 
+                    <TouchableOpacity onPress={()=> setModalVisible(false)} style={{flex:1,backgroundColor:'rgba(83, 88, 97, 0.7)',alignItems:'center',justifyContent:'center'}}>
+                        <View style={{width:'90%',height:800,zIndex:999,backgroundColor: COLOR.primary}}>
+                           
+                            <Text>sad</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                </Modal>
+                <TouchableOpacity
+                    style={{flex:1}}
+                    onPress={() => setModalVisible(true)}>
+                    <Text style={{}}>Show Modal</Text>
+                </TouchableOpacity>
+            </View>
+            </>
+            );
+    };
+    return (
         <SafeAreaView style={{ backgroundColor: COLOR.white }}>
             <View style={styles.header}>
                 <Icon name="arrow-back-ios" size={28} onPress={navigation.goBack} />
@@ -249,6 +277,7 @@ const DetailsScreen = ({ navigation, route }) => {
                     }}>
                     <Image source={item.image} style={{ height: "100%", width: "100%" }} />
                 </View>
+                {openmodal()}
                 <View style={styles.details}>
                     <View
                         style={{
@@ -279,27 +308,12 @@ const DetailsScreen = ({ navigation, route }) => {
                     />
 
                     <View style={{ marginTop: 40, marginBottom: 40 }}>
-                        <Modal
-                            animationType="slide"
-                            transparent={true}
-                            visible={modalVisible}
-                            onRequestClose={() => {
-                                Alert.alert('Modal has been closed.');
-                                setModalVisible(!modalVisible);
-                            }}>
-                            <View style={styles.centeredView}>
-                                <View style={styles.modalView}>
-                                    <Text style={styles.modalText}>Hello</Text>
-                                    <Pressable
-                                        style={[styles.button, styles.buttonClose]}
-                                        onPress={() => setModalVisible(!modalVisible)}>
-                                        <Text style={styles.textStyle}>Hide</Text>
-                                    </Pressable>
-                                </View>
+                        <TouchableOpacity activeOpacity={0.9} onPress={() => setModalVisible(true)}>
+                            <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
+                                <Text style={{ ...styles.title, color: COLOR.primary }}> จอง </Text>
                             </View>
-                        </Modal>
-                        <SecondaryButton title="จอง" />
-
+                        </TouchableOpacity>
+                       
                     </View>
 
                 </View>

@@ -97,31 +97,25 @@ const styles = StyleSheet.create({
 });
 
 const HomeScreenOwner = ({ navigation }) => {
-    const todoRef = firebase.firestore().collection('Karumine');
+    const isuser=firebase.auth().currentUser
+    console.log('isuser',isuser);
     const [addData, setAddData] = useState('');
 
     // add new field
-    const addField = () => {
-        //Check if we have new field data
-        if (addData && addData.length > 0) {
-            // get the timestamp
-            const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-            const data = {
-                NameFood: addData,
-                createdAt: timestamp
-            };
-            todoRef
-                .add(data)
-                .then(() => {
-                    // release the field state
-                    setAddData('');
-                    //release Keyboard
-                    Keyboard.dismiss();
+    const addField = async () => {
+        try{
+        await firebase.firestore().collection('users').doc(isuser.uid)
+            .update({
+                "foods": firebase.firestore.FieldValue.arrayUnion({
+                    id: '1',
+                    name: addData,
+                    city: 'นนทบุรี',
+                    price: 'สถานะ ว่าง',
                 })
-                .catch((error) => {
-                    // show an alert in case of error
-                    alert(error);
-                })
+            })
+        }
+        catch(error){
+            console.log('asdwe',error);
         }
     }
 
@@ -155,7 +149,7 @@ const HomeScreenOwner = ({ navigation }) => {
 
                     </View>
 
-                    <TouchableOpacity style={styles.button} onPress={addField}>
+                    <TouchableOpacity style={styles.button} onPress={()=>addField()}>
                         <Text style={styles.buttonText}>Add</Text>
                     </TouchableOpacity>
                 </Animatable.View>
