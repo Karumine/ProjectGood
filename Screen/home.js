@@ -22,7 +22,7 @@ const COLOR = {
 };
 
 const categories = [
-    { id: '1', name: 'ร้านที่จองได้', image: require('../assets/sandwich-burger.png') },
+    { id: '1', name: 'ร้านอาหาร', image: require('../assets/sandwich-burger.png') },
     { id: '2', name: 'สั่งกับบ้าน', image: require('../assets/sandwich-burger.png') },
     { id: '3', name: 'Sushi', image: require('../assets/sandwich-burger.png') },
     { id: '4', name: 'Restaurant', image: require('../assets/sandwich-burger.png') },
@@ -34,37 +34,35 @@ const categories = [
 const foods = [
     {
         id: '1',
-        name: 'ร้านชายหนึ่ง',
-        ingredients: 'นนทบุรี',
+        name: 'Vogue Beauty',
+        city: 'นนทบุรี',
         price: 'สถานะ ว่าง',
         image: require('../assets/Res1.jpg'),
     },
     {
         id: '2',
         name: 'ร้านชายสอง',
-        ingredients: 'Cheese Pizza',
+        city: 'Cheese Pizza',
         price: 'สถานะ ว่าง',
         image: require('../assets/Res2.jpg'),
     },
     {
         id: '3',
         name: 'ร้านชายสาม',
-        ingredients: 'Fried Chicken',
+        city: 'Fried Chicken',
         price1: 'สถานะ ไม่ว่าง',
         image: require('../assets/Res3.jpg'),
     },
     {
         id: '4',
         name: 'ร้านชายสี่',
-        ingredients: 'Salmon Meat',
+        city: 'Salmon Meat',
         price: 'สถานะ ว่าง',
         image: require('../assets/Res4.jpg'),
     },
 ];
 
-const Tab = createMaterialBottomTabNavigator();
-const { height } = Dimensions.get("screen");
-const height_logo = height * 0.6;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -227,20 +225,20 @@ export default function HomeScreen({ navigation }) {
         );
     };
 
-    const Card = ({ food }) => {
+    const Card = ({ restaurant }) => {
         return (
             <TouchableHighlight
                 underlayColor={COLOR.white}
                 activeOpacity={0.9}
-                onPress={() => navigation.navigate('DetailsScreen', food)}>
+                onPress={() => navigation.navigate('DetailsScreen', restaurant)}>
                 <View style={styles.card}>
                     <View style={{ alignItems: 'center', }}>
-                        <Image source={food.image} style={{ height: 120, width: '100%' }} />
+                        <Image source={restaurant.image} style={{ height: 120, width: '100%' }} />
                     </View>
                     <View style={{ marginHorizontal: 20 }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{food.name}</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{restaurant.name}</Text>
                         <Text style={{ fontSize: 14, color: COLOR.grey, marginTop: 2 }}>
-                            {food.ingredients}
+                            {restaurant.city}
                         </Text>
                     </View>
                     <View
@@ -252,12 +250,12 @@ export default function HomeScreen({ navigation }) {
                         }}>
                         
                             <Text style={{ fontSize: 18, fontWeight: 'bold', color: "green" }}>
-                                {food.price}
+                                {restaurant.price}
 
                             </Text>
 
                             <Text style={{ fontSize: 18, fontWeight: 'bold', color: "red", justifyContent: 'flex-start' }}>
-                                {food.price1}
+                                {restaurant.price1}
                             </Text>
 
                     </View>
@@ -314,7 +312,7 @@ export default function HomeScreen({ navigation }) {
                         showsVerticalScrollIndicator={false}
                         numColumns={2}
                         data={foods}
-                        renderItem={({ item }) => <Card food={item} />}
+                        renderItem={({ item }) => <Card restaurant={item} />}
                     />
                 </Animatable.View>
             </SafeAreaView>

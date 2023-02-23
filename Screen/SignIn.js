@@ -82,17 +82,6 @@ export default function SignInScreen({ navigation }) {
         }
     }
 
-    const gotoAllScreen = () => {
-        navigation.navigate("AllScreen")
-    }
-
-    const gotoRegister = () => {
-        navigation.navigate("Register")
-    }
-
-    const gotoForgotPassword = () => {
-        navigation.navigate("ForgotScreen")
-    }
 
     const [data, setData] = React.useState({
         
