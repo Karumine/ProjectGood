@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from './home';
 import AccountUserScreen from './AccountUser';
@@ -23,6 +23,12 @@ const Tab = createBottomTabNavigator();
 const AlluserScreen = () => {
   return (
     <Tab.Navigator
+      // screenOptions={{
+      //   tabBarStyle: {
+      //     // backgroundColor: colors1.Text,
+      //     height: 90
+      //   }
+      // }}
       tabBarOptions={{
         style: {
           height: 55,
@@ -31,13 +37,15 @@ const AlluserScreen = () => {
         },
         showLabel: false,
         activeTintColor: COLORS.primary,
+        inactiveTintColor: COLORS.secondary,
+
       }}>
       <Tab.Screen
         name="HomeScreen"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({color}) => (
-            <Icon name="home-filled" color={color} size={28} />
+          tabBarIcon: ({ color }) => (
+            <Icon name="home-filled" color={color} size={28} magin={20} />
           ),
         }}
       />
@@ -45,7 +53,7 @@ const AlluserScreen = () => {
         name="LocalMall"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name="local-mall" color={color} size={28} />
           ),
         }}
@@ -77,7 +85,7 @@ const AlluserScreen = () => {
         name="Favorite"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name="favorite" color={color} size={28} />
           ),
         }}
@@ -86,7 +94,7 @@ const AlluserScreen = () => {
         name="Cart"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name="shopping-cart" color={color} size={28} />
           ),
         }}

@@ -25,7 +25,6 @@ export default function AllScreen() {
       activeColor="#e91e63"
       barStyle={{ backgroundColor: '#FF0000' }}
     >
-
       <Tab.Screen
         name="Account"
         component={AccountScreen}
