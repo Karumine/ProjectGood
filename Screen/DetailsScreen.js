@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, FlatList, Modal, Pressable, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import * as Animatable from 'react-native-animatable';
 
 // const PrimaryButton = ({ title, onPress = () => { } }) => {
 //     return (
@@ -150,6 +150,15 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         elevation: 20,
     },
+    tabmodal: {
+        width: '80%',
+        height: "80%", zIndex: 999,
+        backgroundColor: COLOR.primary,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
+    },
 });
 
 const foods = [
@@ -233,34 +242,39 @@ const DetailsScreen = ({ navigation, route }) => {
     const item = route.params;
     const [modalVisible, setModalVisible] = useState(false);
     const openmodal = () => {
-            return (
-                <>
-            <View >
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert('Modal has been closed.');
-                        setModalVisible(!modalVisible);
-                    }}>
+        return (
+            <>
+                <View >
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert('Modal has been closed.');
+                            setModalVisible(!modalVisible);
+                        }}>
 
-                    <TouchableOpacity onPress={()=> setModalVisible(false)} style={{flex:1,backgroundColor:'rgba(83, 88, 97, 0.7)',alignItems:'center',justifyContent:'center'}}>
-                        <View style={{width:'90%',height:800,zIndex:999,backgroundColor: COLOR.primary}}>
-                           
-                            <Text>sad</Text>
-                        </View>
-                    </TouchableOpacity>
+                        <Animatable.View
+                            animation="fadeInUpBig"
+                        >
+                            <TouchableOpacity onPress={() => setModalVisible(false)}
+                                style={{
+                                    height: "100%",
+                                    backgroundColor: 'rgba(83, 88, 97, 0.7)',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                <View style={styles.tabmodal}>
+                                    <Text>asdaswdaswd</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </Animatable.View>
 
-                </Modal>
-                <TouchableOpacity
-                    style={{flex:1}}
-                    onPress={() => setModalVisible(true)}>
-                    <Text style={{}}>Show Modal</Text>
-                </TouchableOpacity>
-            </View>
+                    </Modal>
+
+                </View>
             </>
-            );
+        );
     };
     return (
         <SafeAreaView style={{ backgroundColor: COLOR.white }}>
@@ -308,12 +322,13 @@ const DetailsScreen = ({ navigation, route }) => {
                     />
 
                     <View style={{ marginTop: 40, marginBottom: 40 }}>
+
                         <TouchableOpacity activeOpacity={0.9} onPress={() => setModalVisible(true)}>
                             <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
                                 <Text style={{ ...styles.title, color: COLOR.primary }}> จอง </Text>
                             </View>
                         </TouchableOpacity>
-                       
+
                     </View>
 
                 </View>

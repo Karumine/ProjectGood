@@ -80,7 +80,6 @@ export default function SignUpScreen({ navigation }) {
             console.log('create', credentials.user);
             firebase.firestore().collection('users').doc(credentials.user.uid).set({
                 email:email,
-            
             });
             console.log('uid555', credentials.user.uid);
             await firebase.firestore().collection('users').doc(credentials.user.uid)
@@ -223,7 +222,6 @@ export default function SignUpScreen({ navigation }) {
                             color: '#FF0000'
                         }]}>Sign In</Text>
                     </TouchableOpacity>
-
                 </View>
             </Animatable.View>
         </View>

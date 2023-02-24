@@ -22,11 +22,11 @@ const COLOR = {
 };
 
 const categories = [
-    { id: '1', name: 'ร้านอาหาร', image: require('../assets/sandwich-burger.png') },
-    { id: '2', name: 'สั่งกับบ้าน', image: require('../assets/sandwich-burger.png') },
-    { id: '3', name: 'Sushi', image: require('../assets/sandwich-burger.png') },
-    { id: '4', name: 'Restaurant', image: require('../assets/sandwich-burger.png') },
-    { id: '5', name: 'Restaurant', image: require('../assets/sandwich-burger.png') },
+    { id: '1', name: 'สุขภาพ', image: require('../assets/sandwich-burger.png') },
+    { id: '2', name: 'บุฟเฟ่ต์', image: require('../assets/sandwich-burger.png') },
+    { id: '3', name: 'อาหารจีน', image: require('../assets/sandwich-burger.png') },
+    { id: '4', name: 'อาหารไทย', image: require('../assets/sandwich-burger.png') },
+    { id: '5', name: 'สเต็ก', image: require('../assets/sandwich-burger.png') },
 
 
 ];
