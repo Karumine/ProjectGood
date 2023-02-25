@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, FlatList, Modal, Pressable, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
+import { SafeAreaView,StatusBar, StyleSheet, FlatList, Modal, Pressable, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
@@ -245,6 +245,7 @@ const DetailsScreen = ({ navigation, route }) => {
     const openmodal = () => {
         return (
             <>
+                <StatusBar barStyle='dark-content' />
                 <View >
                     <Modal
                         animationType="slide"
@@ -265,12 +266,12 @@ const DetailsScreen = ({ navigation, route }) => {
                                     alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                               
+
 
                                 <TouchableOpacity activeOpacity={1} style={styles.tabmodal}>
-                                    
-                                        <Text>asdaswdaswd</Text>
-                                    
+
+                                    <Text>asdaswdaswd</Text>
+
                                 </TouchableOpacity>
                             </TouchableOpacity>
                         </Animatable.View>

@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         width: cardWidth,
         marginHorizontal: 10,
         marginBottom: 20,
-        marginTop: 50,
+
         borderRadius: 15,
         elevation: 13,
         backgroundColor: COLOR.secondary,
@@ -227,28 +227,31 @@ export default function HomeScreen({ navigation }) {
 
     const Card = ({ restaurant }) => {
         return (
-            <TouchableHighlight
-                underlayColor={COLOR.white}
-                activeOpacity={0.9}
-                onPress={() => navigation.navigate('DetailsScreen', restaurant)}>
-                <View style={styles.card}>
-                    <View style={{ alignItems: 'center', }}>
-                        <Image source={restaurant.image} style={{ height: 120, width: '100%' }} />
-                    </View>
-                    <View style={{ marginHorizontal: 20 }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{restaurant.name}</Text>
-                        <Text style={{ fontSize: 14, color: COLOR.grey, marginTop: 2 }}>
-                            {restaurant.city}
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            marginTop: 10,
-                            marginHorizontal: 20,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                        }}>
-                        
+            <>
+            <StatusBar barStyle='dark-content' />
+                <TouchableHighlight
+                    underlayColor={COLOR.white}
+                    activeOpacity={0.9}
+                    onPress={() => navigation.navigate('DetailsScreen', restaurant)}>
+
+                    <View style={styles.card}>
+                        <View style={{ alignItems: 'center', }}>
+                            <Image source={restaurant.image} style={{ height: 120, width: '100%' }} />
+                        </View>
+                        <View style={{ marginHorizontal: 20 }}>
+                            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{restaurant.name}</Text>
+                            <Text style={{ fontSize: 14, color: COLOR.grey, marginTop: 2 }}>
+                                {restaurant.city}
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                marginTop: 10,
+                                marginHorizontal: 20,
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                            }}>
+
                             <Text style={{ fontSize: 18, fontWeight: 'bold', color: "green" }}>
                                 {restaurant.price}
 
@@ -258,64 +261,78 @@ export default function HomeScreen({ navigation }) {
                                 {restaurant.price1}
                             </Text>
 
+                        </View>
                     </View>
-                </View>
-            </TouchableHighlight>
+                </TouchableHighlight>
+            </>
         );
     };
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.white }}>
-                <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
-                <Animatable.View
-                    animation="fadeInUpBig"
-                    style={styles.footer}>
+        <>
+            <StatusBar barStyle='dark-content' />
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.white }}>
+                    <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
+                    <Animatable.View
+                        animation="fadeInUpBig"
+                        style={styles.footer}>
 
-                    <View style={styles.header}>
-                        <View>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text style={{ fontSize: 28 }}>Hello,</Text>
-                                <Text style={{ fontSize: 28, fontWeight: 'bold', marginLeft: 10 }}>
-                                    Karumine
+                        <View style={styles.header}>
+                            <View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={{ fontSize: 28 }}>Hello,</Text>
+                                    <Text style={{ fontSize: 28, fontWeight: 'bold', marginLeft: 10 }}>
+                                        Karumine
+                                    </Text>
+                                </View>
+                                <Text style={{ marginTop: 5, fontSize: 22, color: COLOR.grey }}>
+                                    What do you want today
                                 </Text>
                             </View>
-                            <Text style={{ marginTop: 5, fontSize: 22, color: COLOR.grey }}>
-                                What do you want today
-                            </Text>
+
+                            <TouchableOpacity onPress={() => navigation.navigate('AccountUserScreen')}>
+                                <MaterialIcons name="account-circle" size={60} color="red" />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{
+                            marginTop: 40,
+                            flexDirection: 'row',
+                            paddingHorizontal: 20,
+                        }}>
+                            <View style={styles.inputContainer}>
+                                <Icon name="search" size={28} />
+                                <TextInput
+                                    style={{ flex: 1, fontSize: 18 }}
+                                    placeholder="Search for Restaurant"
+                                />
+                            </View>
+                            <View style={styles.sortBth}>
+                                <Icon name="tune" size={28} color={COLOR.white} />
+                            </View>
+                        </View>
+                        <View>
+                            <ListCategories />
                         </View>
 
-                        <TouchableOpacity onPress={() => navigation.navigate('AccountUserScreen')}>
-                            <MaterialIcons name="account-circle" size={60} color="red" />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{
-                        marginTop: 40,
-                        flexDirection: 'row',
-                        paddingHorizontal: 20,
-                    }}>
-                        <View style={styles.inputContainer}>
-                            <Icon name="search" size={28} />
-                            <TextInput
-                                style={{ flex: 1, fontSize: 18 }}
-                                placeholder="Search for Restaurant"
-                            />
-                        </View>
-                        <View style={styles.sortBth}>
-                            <Icon name="tune" size={28} color={COLOR.white} />
-                        </View>
-                    </View>
-                    <View>
-                        <ListCategories />
-                    </View>
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        numColumns={2}
-                        data={foods}
-                        renderItem={({ item }) => <Card restaurant={item} />}
-                    />
-                </Animatable.View>
-            </SafeAreaView>
-        </TouchableWithoutFeedback>
+                        <Text style={{
+                            marginBottom: 30,
+                            fontSize: 22,
+                            color: COLOR.back,
+                            paddingHorizontal: 20,
+                        }}>
+                            Restaurant
+                        </Text>
+
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            numColumns={2}
+                            data={foods}
+                            renderItem={({ item }) => <Card restaurant={item} />}
+                        />
+                    </Animatable.View>
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
+        </>
     );
 }

@@ -1,34 +1,11 @@
-export const Font = {
-    contentTitle: {
-      fontFamily: 'Poppins-SemiBold',
-      fontSize: 18,
-    },
-    contentText: {
-      fontFamily: 'Poppins-Regular',
-      fontSize: 14,
-      lineHeight: 22,
-    },
-    section: {
-      fontFamily: 'Poppins-Semibold',
-      fontSize: 22,
-      lineHeight: 24,
-      fontWeight: '900',
-    },
-    price: {
-      fontFamily: 'Poppins-Semibold',
-      fontSize: 22,
-      lineHeight: 28,
-    },
-    location: {
-      fontFamily: 'Poppins-SemiBold',
-      fontSize: 14,
-    },
-    button: {
-      fontFamily: 'Poppins-Regular',
-      fontSize: 12,
-    },
-    category: {
-      fontFamily: 'Poppins-SemiBold',
-      fontSize: 15,
-    },
-  };
+export const Fonts = {
+  POPPINS_BLACK: 'Poppins-Black',
+  POPPINS_BOLD: 'Poppins-Bold',
+  POPPINS_EXTRA_BOLD: 'Poppins-ExtraBold',
+  POPPINS_EXTRA_LIGHT: 'Poppins-ExtraLight',
+  POPPINS_LIGHT: 'Poppins-Light',
+  POPPINS_MEDIUM: 'Poppins-Medium',
+  POPPINS_REGULAR: 'Poppins-Regular',
+  POPPINS_SEMI_BOLD: 'Poppins-SemiBold',
+  POPPINS_THIN: 'Poppins-Thin',
+};

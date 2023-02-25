@@ -6,8 +6,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { MaterialIcons } from '@expo/vector-icons'; 
 import HomeScreen from './home';
-import AccountUserScreen from './AccountUser';
+import DeliveryScreen from './Delivery';
+import FavoriteScreen from './FavoriteScreen';
 
 const COLORS = {
   white: '#FFF',
@@ -50,11 +52,11 @@ const AlluserScreen = () => {
         }}
       />
       <Tab.Screen
-        name="LocalMall"
-        component={HomeScreen}
+        name="Delivery"
+        component={DeliveryScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="local-mall" color={color} size={28} />
+            <MaterialIcons name="delivery-dining" size={34} color={color} />
           ),
         }}
       />
@@ -82,8 +84,8 @@ const AlluserScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Favorite"
-        component={HomeScreen}
+        name="FavoriteScreen"
+        component={FavoriteScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="favorite" color={color} size={28} />

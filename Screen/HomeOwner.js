@@ -126,58 +126,62 @@ const HomeScreenOwner = ({ navigation }) => {
     }
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={{ flex: 1 }}>
-                <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
+        <>
+            <StatusBar barStyle='dark-content' />
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
-                <Animatable.View
-                    animation="fadeInUpBig"
-                >
-                    <View style={styles.header}>
-                        <View>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text style={{ fontSize: 28 }}>Hello,</Text>
-                                <Text style={{ fontSize: 28, fontWeight: 'bold', marginLeft: 10 }}>
-                                    Vogue Beauty
+                <View style={{ flex: 1 }}>
+                    <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
+
+                    <Animatable.View
+                        animation="fadeInUpBig"
+                    >
+                        <View style={styles.header}>
+                            <View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={{ fontSize: 28 }}>Hello,</Text>
+                                    <Text style={{ fontSize: 28, fontWeight: 'bold', marginLeft: 10 }}>
+                                        Vogue Beauty
+                                    </Text>
+                                </View>
+                                <Text style={{ marginTop: 5, fontSize: 22, color: COLOR.grey }}>
+                                    นนทบุรี
                                 </Text>
                             </View>
-                            <Text style={{ marginTop: 5, fontSize: 22, color: COLOR.grey }}>
-                                นนทบุรี
-                            </Text>
+
+
+                            <TouchableOpacity onPress={() => navigation.navigate('AccountOwnerScreen')}>
+                                <MaterialIcons name="account-circle" size={60} color="red" />
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <Image source={require('../assets/Res1.jpg')} style={{
+                                height: '50%',
+                                width: '90%',
+                                marginTop: 20,
+                            }} />
+                        </View>
+                        <View style={styles.formContainer}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder='ชื่อร้านอาหาร'
+                                placeholderTextColor='#aaaaaa'
+                                onChangeText={(NameFood) => setAddData(NameFood)}
+                                value={addData}
+                                multiline={true}
+                                underlineColorAndroid='transparent'
+                                autoCapitalize='none'
+                            />
+
                         </View>
 
-
-                        <TouchableOpacity onPress={() => navigation.navigate('AccountOwnerScreen')}>
-                            <MaterialIcons name="account-circle" size={60} color="red" />
+                        <TouchableOpacity style={styles.button} onPress={() => addField()}>
+                            <Text style={styles.buttonText}>Add</Text>
                         </TouchableOpacity>
-                    </View>
-                    <View>
-                        <Image source={require('../assets/Res1.jpg')} style={{
-                            height: '50%',
-                            width: '90%',
-                            marginTop: 20,
-                        }} />
-                    </View>
-                    <View style={styles.formContainer}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder='ชื่อร้านอาหาร'
-                            placeholderTextColor='#aaaaaa'
-                            onChangeText={(NameFood) => setAddData(NameFood)}
-                            value={addData}
-                            multiline={true}
-                            underlineColorAndroid='transparent'
-                            autoCapitalize='none'
-                        />
-
-                    </View>
-
-                    <TouchableOpacity style={styles.button} onPress={() => addField()}>
-                        <Text style={styles.buttonText}>Add</Text>
-                    </TouchableOpacity>
-                </Animatable.View>
-            </View>
-        </TouchableWithoutFeedback>
+                    </Animatable.View>
+                </View>
+            </TouchableWithoutFeedback>
+        </>
     );
 }
 
