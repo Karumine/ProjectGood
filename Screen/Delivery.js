@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TextInput, TouchableHighlight, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -17,6 +17,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
+    },
+    container1: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: COLOR.white,
+        borderRadius: 10,
     },
     backgroundCurvedContainer: {
         backgroundColor: COLOR.primary,
@@ -52,14 +58,14 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         fontSize: 18,
         lineHeight: 13 * 1.4,
-       
+
     },
     selectedLocationText: {
         color: 'white',
         marginLeft: 5,
         fontSize: 19,
         lineHeight: 14 * 1.4,
-      
+
 
     },
     alertBadge: {
@@ -77,7 +83,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 10,
         lineHeight: 10 * 1.4,
-        
+
     },
     searchContainer: {
 
@@ -111,15 +117,15 @@ const styles = StyleSheet.create({
     },
     listHeaderTitle: {
         color: COLOR.back,
-            fontSize: 18,
-            lineHeight: 16 * 1.4,
-            
+        fontSize: 18,
+        lineHeight: 16 * 1.4,
+
     },
-    listHeaderSubtitle:{
+    listHeaderSubtitle: {
         color: COLOR.primary,
         fontSize: 13,
         lineHeight: 13 * 1.4,
-       
+
     },
     sortBth: {
         width: 50,
@@ -207,16 +213,53 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
+    posterStyle: {
+        width: 1980 * 0.15,
+        height: 1080 * 0.15,
+        borderRadius: 10,
+        margin: 5,
+    }
 
 });
 
 const { width } = Dimensions.get("screen");
 const cardWidth = width / 2 - 20;
 
+const foods = [
+    {
+        id: '1',
+        name: 'Vogue Beauty',
+        city: 'นนทบุรี',
+        price: 'สถานะ ว่าง',
+        image: require('../assets/Res1.jpg'),
+    },
+    {
+        id: '2',
+        name: 'ร้านชายสอง',
+        city: 'Cheese Pizza',
+        price: 'สถานะ ว่าง',
+        image: require('../assets/Res2.jpg'),
+    },
+    {
+        id: '3',
+        name: 'ร้านชายสาม',
+        city: 'Fried Chicken',
+        price1: 'สถานะ ไม่ว่าง',
+        image: require('../assets/Res3.jpg'),
+    },
+    {
+        id: '4',
+        name: 'ร้านชายสี่',
+        city: 'Salmon Meat',
+        price: 'สถานะ ว่าง',
+        image: require('../assets/Res4.jpg'),
+    },
+];
 
-const DeliveryScreen = ({navigation}) => {
+const DeliveryScreen = ({ navigation }) => {
     const [activeCategory, setActiveCategory] = useState();
-   
+
+
     return (
         <>
             <StatusBar barStyle='dark-content' />
@@ -286,11 +329,26 @@ const DeliveryScreen = ({navigation}) => {
                             <Text style={styles.listHeaderTitle}>Top Rated</Text>
                             <Text style={styles.listHeaderSubtitle}>See All</Text>
                         </View>
-                        
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            numColumns={2}
+                            data={foods}
+                            renderItem={({ item }) => <RestaurantCard restaurant={item} />}
+                        />
                     </View>
                 </ScrollView>
             </View>
 
+        </>
+    );
+};
+
+const RestaurantCard = ({ restaurant }) => {
+    return (
+        <>
+            <TouchableOpacity style={styles.container1}>
+            <Image source={restaurant.image} style={styles.posterStyle} />
+            </TouchableOpacity>
         </>
     );
 };
