@@ -14,6 +14,14 @@ import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@exp
 const Tab = createMaterialBottomTabNavigator();
 const { height } = Dimensions.get("screen");
 const height_logo = height * 0.6;
+const COLOR = {
+    white: '#FFF',
+    dark: '#000',
+    primary: '#FF0000',
+    secondary: '#fedac5',
+    light: '#E5E5E5',
+    grey: '#908e8c',
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -21,12 +29,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF0000'
     },
     header: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingBottom: 50,
-
-        borderTopRightRadius: 30,
+        marginTop: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20
     },
     footer: {
         flex: 1,
@@ -97,43 +103,60 @@ const styles = StyleSheet.create({
 });
 
 const HomeScreenOwner = ({ navigation }) => {
-    const isuser=firebase.auth().currentUser
-    console.log('isuser',isuser);
+    const isuser = firebase.auth().currentUser
+    console.log('isuser', isuser);
     const [addData, setAddData] = useState('');
 
     // add new field
     const addField = async () => {
-        try{
-        await firebase.firestore().collection('users').doc(isuser.uid)
-            .update({
-                "foods": firebase.firestore.FieldValue.arrayUnion({
-                    id: '1',
-                    name: addData,
-                    city: 'นนทบุรี',
-                    price: 'สถานะ ว่าง',
+        try {
+            await firebase.firestore().collection('users').doc(isuser.uid)
+                .update({
+                    "foods": firebase.firestore.FieldValue.arrayUnion({
+                        id: '1',
+                        name: addData,
+                        city: 'นนทบุรี',
+                        price: 'สถานะ ว่าง',
+                    })
                 })
-            })
         }
-        catch(error){
-            console.log('asdwe',error);
+        catch (error) {
+            console.log('asdwe', error);
         }
     }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={{ flex: 1, justifyContent: 'center' }}>
+            <View style={{ flex: 1 }}>
                 <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
 
                 <Animatable.View
                     animation="fadeInUpBig"
-
                 >
-                    <View style={{ alignItems: 'flex-end' }}>
+                    <View style={styles.header}>
+                        <View>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ fontSize: 28 }}>Hello,</Text>
+                                <Text style={{ fontSize: 28, fontWeight: 'bold', marginLeft: 10 }}>
+                                    Vogue Beauty
+                                </Text>
+                            </View>
+                            <Text style={{ marginTop: 5, fontSize: 22, color: COLOR.grey }}>
+                                นนทบุรี
+                            </Text>
+                        </View>
 
 
                         <TouchableOpacity onPress={() => navigation.navigate('AccountOwnerScreen')}>
                             <MaterialIcons name="account-circle" size={60} color="red" />
                         </TouchableOpacity>
+                    </View>
+                    <View>
+                        <Image source={require('../assets/Res1.jpg')} style={{
+                            height: '50%',
+                            width: '90%',
+                            marginTop: 20,
+                        }} />
                     </View>
                     <View style={styles.formContainer}>
                         <TextInput
@@ -149,7 +172,7 @@ const HomeScreenOwner = ({ navigation }) => {
 
                     </View>
 
-                    <TouchableOpacity style={styles.button} onPress={()=>addField()}>
+                    <TouchableOpacity style={styles.button} onPress={() => addField()}>
                         <Text style={styles.buttonText}>Add</Text>
                     </TouchableOpacity>
                 </Animatable.View>

@@ -152,7 +152,8 @@ const styles = StyleSheet.create({
     },
     tabmodal: {
         width: '80%',
-        height: "80%", zIndex: 999,
+        height: "80%",
+        zIndex: 999,
         backgroundColor: COLOR.primary,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
@@ -264,9 +265,13 @@ const DetailsScreen = ({ navigation, route }) => {
                                     alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                <View style={styles.tabmodal}>
-                                    <Text>asdaswdaswd</Text>
-                                </View>
+                               
+
+                                <TouchableOpacity activeOpacity={1} style={styles.tabmodal}>
+                                    
+                                        <Text>asdaswdaswd</Text>
+                                    
+                                </TouchableOpacity>
                             </TouchableOpacity>
                         </Animatable.View>
 
