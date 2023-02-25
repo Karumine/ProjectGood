@@ -1,5 +1,5 @@
 const CATEGORIES = [
-  {name: 'Chicken', logo: 'NOODLES'},
+  {name: 'Chicken', logo: 'FRIEDCHICKEN'},
   {name: 'Burgers', logo: 'BURGER'},
   {name: 'Pizza', logo: 'PIZZA'},
   {name: 'Desserts', logo: 'DESSERT'},

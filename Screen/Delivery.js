@@ -9,8 +9,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Mock from './constants/Mock';
 import CategoryMenuItem from './components/CategoryMenuItem';
 import { COLOR } from './constants/color';
-const { width } = Dimensions.get("screen");
-const cardWidth = width / 2 - 20;
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { useEffect } from 'react';
+
 
 const styles = StyleSheet.create({
     container: {
@@ -51,14 +52,14 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         fontSize: 18,
         lineHeight: 13 * 1.4,
-        fontFamily: Fonts.POPPINS_MEDIUM,
+       
     },
     selectedLocationText: {
         color: 'white',
         marginLeft: 5,
         fontSize: 19,
         lineHeight: 14 * 1.4,
-        fontFamily: Fonts.POPPINS_MEDIUM,
+      
 
     },
     alertBadge: {
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 10,
         lineHeight: 10 * 1.4,
-        fontFamily: Fonts.POPPINS_BOLD,
+        
     },
     searchContainer: {
 
@@ -92,6 +93,32 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         marginTop: 20,
+
+    },
+    listContainer: {
+        paddingVertical: 5,
+        zIndex: -5,
+    },
+    horizontalListContainer: {
+        marginTop: 30,
+    },
+    listHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginHorizontal: 20,
+        marginBottom: 5,
+    },
+    listHeaderTitle: {
+        color: COLOR.back,
+            fontSize: 18,
+            lineHeight: 16 * 1.4,
+            
+    },
+    listHeaderSubtitle:{
+        color: COLOR.primary,
+        fontSize: 13,
+        lineHeight: 13 * 1.4,
        
     },
     sortBth: {
@@ -183,8 +210,13 @@ const styles = StyleSheet.create({
 
 });
 
-const DeliveryScreen = () => {
-    const [activeCategory, setActiveCategory] = useState()
+const { width } = Dimensions.get("screen");
+const cardWidth = width / 2 - 20;
+
+
+const DeliveryScreen = ({navigation}) => {
+    const [activeCategory, setActiveCategory] = useState();
+   
     return (
         <>
             <StatusBar barStyle='dark-content' />
@@ -248,6 +280,15 @@ const DeliveryScreen = () => {
                         ))}
                     </View>
                 </View>
+                <ScrollView style={styles.listContainer}>
+                    <View style={styles.horizontalListContainer}>
+                        <View style={styles.listHeader}>
+                            <Text style={styles.listHeaderTitle}>Top Rated</Text>
+                            <Text style={styles.listHeaderSubtitle}>See All</Text>
+                        </View>
+                        
+                    </View>
+                </ScrollView>
             </View>
 
         </>

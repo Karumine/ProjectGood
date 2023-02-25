@@ -122,7 +122,7 @@ export default function SignInScreen({ navigation }) {
 
     return (
         <>
-        <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
+            <StatusBar backgroundColor='#FF0000' barStyle="light-content" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <View style={styles.header}>

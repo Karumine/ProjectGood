@@ -12,9 +12,13 @@ const COLOR = {
 };
 
 export const Images = {
-  DELIVER: require('../../assets/Images/burger.png'),
-  BURGER: require('../../assets/Images/deliver.png'),
-  DELIVERY_CHARGE: require('../../assets/Images/delivery_charge.png'),
+  
+  FRIEDCHICKEN: require('../../assets/Images/fried_chicken.png'),
+  BURGER: require('../../assets/Images/burger.png'),
+  PIZZA: require('../../assets/Images/pizza.png'),
+  DESSERT: require('../../assets/Images/dessert.png'),
+  DRINKS: require('../../assets/Images/drinks.png'),
+  NOODLES: require('../../assets/Images/noodles.png')
 };
 const CategoryMenuItem = ({name, logo, activeCategory, setActiveCategory}) => {
   return (
@@ -33,19 +37,21 @@ const styles = StyleSheet.create({
   category: (marginTop = 0) => ({
     alignItems: 'center',
     marginTop,
+    
   }),
   categoryIcon: isActive => ({
-    height: 30,
-    width: 30,
-    opacity: isActive ? 1 : 0.5,
+    height: 40,
+    width: 40,
+    opacity: isActive ? 1 : 0.6,
+    
   }),
   categoryText: isActive => ({
-    fontSize: 13,
-    lineHeight: 10 * 1.4,
+    fontWeight: 'bold',
+    fontSize: 15,
     fontFamily: Fonts.POPPINS_MEDIUM,
     color: COLOR.white,
-    marginTop: 10,
-    opacity: isActive ? 1 : 0.5,
+    marginTop: 5,
+    opacity: isActive ? 1 : 0.6,
   }),
 });
 export default CategoryMenuItem;
