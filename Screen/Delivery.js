@@ -218,48 +218,36 @@ const styles = StyleSheet.create({
         height: 1080 * 0.15,
         borderRadius: 10,
         margin: 5,
-    }
+    },
+    sortListContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        backgroundColor: COLOR.primary,
+        marginTop: 8,
+        elevation: 1,
+    },
+    sortListItem: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: COLOR.primary,
+        height: 40,
+    },
+    sortListItemText: {
+        color: COLOR.black,
+        fontSize: 13,
+        lineHeight: 13 * 1.4,
+    },
 
 });
 
 const { width } = Dimensions.get("screen");
 const cardWidth = width / 2 - 20;
 
-const foods = [
-    {
-        id: '1',
-        name: 'Vogue Beauty',
-        city: 'นนทบุรี',
-        price: 'สถานะ ว่าง',
-        image: require('../assets/Res1.jpg'),
-    },
-    {
-        id: '2',
-        name: 'ร้านชายสอง',
-        city: 'Cheese Pizza',
-        price: 'สถานะ ว่าง',
-        image: require('../assets/Res2.jpg'),
-    },
-    {
-        id: '3',
-        name: 'ร้านชายสาม',
-        city: 'Fried Chicken',
-        price1: 'สถานะ ไม่ว่าง',
-        image: require('../assets/Res3.jpg'),
-    },
-    {
-        id: '4',
-        name: 'ร้านชายสี่',
-        city: 'Salmon Meat',
-        price: 'สถานะ ว่าง',
-        image: require('../assets/Res4.jpg'),
-    },
-];
-
 const DeliveryScreen = ({ navigation }) => {
     const [activeCategory, setActiveCategory] = useState();
-
-
     return (
         <>
             <StatusBar barStyle='dark-content' />
@@ -336,18 +324,54 @@ const DeliveryScreen = ({ navigation }) => {
                             renderItem={({ item }) => <RestaurantCard restaurant={item} />}
                         />
                     </View>
+                    <View style={styles.sortListContainer}>
+                        <TouchableOpacity style={styles.sortListItem} activeOpacity={.8}>
+                            <Text style={styles.sortListItemText}>Recent</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.sortListItem} activeOpacity={.8}>
+                            <Text style={styles.sortListItemText}>Favorite</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.sortListItem} activeOpacity={.8}>
+                            <Text style={styles.sortListItemText}>Raing</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.sortListItem} activeOpacity={.8}>
+                            <Text style={styles.sortListItemText}>Popular</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.sortListItem} activeOpacity={.8}>
+                            <Text style={styles.sortListItemText}>Trending</Text>
+                        </TouchableOpacity>
+                    </View>
                 </ScrollView>
             </View>
 
         </>
     );
 };
+const foods = [
+    {
+        id: '1',
+        name: 'Vogue Beauty',
+        city: 'นนทบุรี',
+        price: 'สถานะ ว่าง',
+        image: require('../assets/food1.jpg'),
+    },
+    {
+        id: '2',
+        name: 'ร้านชายสอง',
+        city: 'Cheese Pizza',
+        price: 'สถานะ ว่าง',
+        image: require('../assets/Res2.jpg'),
+    },
 
+
+];
 const RestaurantCard = ({ restaurant }) => {
     return (
         <>
             <TouchableOpacity style={styles.container1}>
-            <Image source={restaurant.image} style={styles.posterStyle} />
+                <Image source={restaurant.image} style={styles.posterStyle}
+                />
+
             </TouchableOpacity>
         </>
     );
