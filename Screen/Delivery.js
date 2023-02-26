@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TextInput, TouchableHighlight, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TextInput, TouchableHighlight, Image, Keyboard, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -11,6 +11,9 @@ import CategoryMenuItem from './components/CategoryMenuItem';
 import { COLOR } from './constants/color';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { useEffect } from 'react';
+import { RestaurantMediumCard } from './components';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const sortStyle = isActive =>
     isActive
@@ -51,6 +54,9 @@ const styles = StyleSheet.create({
     header: {
         justifyContent: 'space-evenly',
     },
+    headerBottom: {
+        justifyContent: 'space-evenly',
+    },
     locationContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -69,8 +75,6 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         fontSize: 19,
         lineHeight: 14 * 1.4,
-
-
     },
     alertBadge: {
         borderRadius: 32,
@@ -103,7 +107,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         marginTop: 20,
-
     },
     listContainer: {
         paddingVertical: 5,
@@ -161,14 +164,14 @@ const styles = StyleSheet.create({
         borderRadius: 30,
     },
     card: {
-        height: 220,
+        marginTop: 20,
+        height: 150,
         width: cardWidth,
-        marginHorizontal: 10,
+        marginHorizontal: 20,
         marginBottom: 20,
-
+        flexDirection: 'row',
         borderRadius: 15,
-        elevation: 13,
-        backgroundColor: COLOR.secondary,
+        backgroundColor: COLOR.primary,
     },
 
     titleText: {
@@ -293,7 +296,7 @@ const styles = StyleSheet.create({
         color: COLOR.primary,
         fontSize: 13,
         lineHeight: 13 * 1.4,
-        
+
     },
 });
 
@@ -303,137 +306,201 @@ const cardWidth = width / 2 - 20;
 const DeliveryScreen = ({ navigation }) => {
     const [activeCategory, setActiveCategory] = useState();
     const [activeSortItem, setActiveSortItem] = useState('recent');
+
     return (
         <>
             <StatusBar barStyle='dark-content' />
-            <View style={styles.container}>
-                <View style={styles.backgroundCurvedContainer} />
-                <View style={styles.header}>
-                    <View style={styles.locationContainer}>
-                        <Ionicons
-                            name="location-outline"
-                            size={28} color="black"
-                        />
-                        <Text style={styles.locationText}>Deliverd to</Text>
-                        <Text style={styles.selectedLocationText}>Home</Text>
-                        <MaterialIcons
-                            name="keyboard-arrow-down"
-                            size={28} color="white"
-                        />
-                        <Feather
-                            name="bell"
-                            size={28}
-                            color="black"
-                            style={{ position: 'absolute', right: 0 }}
-                        />
-                        <View style={styles.alertBadge}>
-                            <Text style={styles.alertBadgeText}>12</Text>
-                        </View>
-                    </View>
-                    <View style={styles.searchContainer}>
-                        <View style={styles.inputContainer}>
-                            <Icon
-                                name="search"
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
+                    <View style={styles.backgroundCurvedContainer} />
+                    <View style={styles.header}>
+                        <View style={styles.locationContainer}>
+                            <Ionicons
+                                name="location-outline"
+                                size={28} color="black"
+                            />
+                            <Text style={styles.locationText}>Deliverd to</Text>
+                            <Text style={styles.selectedLocationText}>Home</Text>
+                            <MaterialIcons
+                                name="keyboard-arrow-down"
+                                size={28} color="white"
+                            />
+                            <Feather
+                                name="bell"
                                 size={28}
-                                color="red"
+                                color="black"
+                                style={{ position: 'absolute', right: 0 }}
                             />
-                            <TextInput
-                                style={{
-                                    flex: 1,
-                                    fontSize: 18,
-                                    paddingHorizontal: 10,
-                                }}
-                                placeholder="Search for Restaurant"
+                            <View style={styles.alertBadge}>
+                                <Text style={styles.alertBadgeText}>12</Text>
+                            </View>
+                        </View>
+                        <View style={styles.searchContainer}>
+                            <View style={styles.inputContainer}>
+                                <Icon
+                                    name="search"
+                                    size={28}
+                                    color="red"
+                                />
+                                <TextInput
+                                    style={{
+                                        flex: 1,
+                                        fontSize: 18,
+                                        paddingHorizontal: 10,
+                                    }}
+                                    placeholder="Search for Restaurant"
+                                />
+                            </View>
+                            <View style={styles.sortBth}>
+                                <Icon
+                                    name="tune"
+                                    size={28}
+                                    color={COLOR.primary}
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.categoriesContainer}>
+                            {Mock.CATEGORIES.map(({ name, logo }) => (
+                                <CategoryMenuItem
+                                    key={name}
+                                    name={name}
+                                    logo={logo}
+                                    activeCategory={activeCategory}
+                                    setActiveCategory={setActiveCategory}
+                                />
+                            ))}
+                        </View>
+                    </View>
+                    <ScrollView style={styles.listContainer}>
+                        <View style={styles.horizontalListContainer}>
+                            <View style={styles.listHeader}>
+                                <Text style={styles.listHeaderTitle}>Top Rated</Text>
+                                <Text style={styles.listHeaderSubtitle}>See All</Text>
+                            </View>
+                            <FlatList
+                                showsVerticalScrollIndicator={false}
+                                numColumns={2}
+                                data={foods}
+                                renderItem={({ item }) => <RestaurantCard restaurant={item} />}
                             />
                         </View>
-                        <View style={styles.sortBth}>
-                            <Icon
-                                name="tune"
-                                size={28}
-                                color={COLOR.primary}
-                            />
+                        <View style={styles.sortListContainer}>
+                            <TouchableOpacity
+                                style={sortStyle(activeSortItem === 'recent')}
+                                activeOpacity={0.5}
+                                onPress={() => setActiveSortItem('recent')}>
+                                <Text style={styles.sortListItemText}>Recent</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={sortStyle(activeSortItem === 'favorite')}
+                                activeOpacity={0.5}
+                                onPress={() => setActiveSortItem('favorite')}>
+                                <Text style={styles.sortListItemText}>Favorite</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={sortStyle(activeSortItem === 'rating')}
+                                activeOpacity={0.5}
+                                onPress={() => setActiveSortItem('rating')}>
+                                <Text style={styles.sortListItemText}>Rating</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={sortStyle(activeSortItem === 'popular')}
+                                activeOpacity={0.5}
+                                onPress={() => setActiveSortItem('popular')}>
+                                <Text style={styles.sortListItemText}>Popular</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={sortStyle(activeSortItem === 'trending')}
+                                activeOpacity={0.5}
+                                onPress={() => setActiveSortItem('trending')}>
+                                <Text style={styles.sortListItemText}>Trending</Text>
+                            </TouchableOpacity>
                         </View>
-                    </View>
-                    <View style={styles.categoriesContainer}>
-                        {Mock.CATEGORIES.map(({ name, logo }) => (
-                            <CategoryMenuItem
-                                key={name}
-                                name={name}
-                                logo={logo}
-                                activeCategory={activeCategory}
-                                setActiveCategory={setActiveCategory}
-                            />
-                        ))}
-                    </View>
-                </View>
-                <ScrollView style={styles.listContainer}>
-                    <View style={styles.horizontalListContainer}>
-                        <View style={styles.listHeader}>
-                            <Text style={styles.listHeaderTitle}>Top Rated</Text>
-                            <Text style={styles.listHeaderSubtitle}>See All</Text>
-                        </View>
-                        <FlatList
-                            showsVerticalScrollIndicator={false}
-                            numColumns={2}
-                            data={foods}
-                            renderItem={({ item }) => <RestaurantCard restaurant={item} />}
-                        />
-                    </View>
-                    <View style={styles.sortListContainer}>
-                        <TouchableOpacity
-                            style={sortStyle(activeSortItem === 'recent')}
-                            activeOpacity={0.8}
-                            onPress={() => setActiveSortItem('recent')}>
-                            <Text style={styles.sortListItemText}>Recent</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={sortStyle(activeSortItem === 'favorite')}
-                            activeOpacity={0.8}
-                            onPress={() => setActiveSortItem('favorite')}>
-                            <Text style={styles.sortListItemText}>Favorite</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={sortStyle(activeSortItem === 'rating')}
-                            activeOpacity={0.8}
-                            onPress={() => setActiveSortItem('rating')}>
-                            <Text style={styles.sortListItemText}>Rating</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={sortStyle(activeSortItem === 'popular')}
-                            activeOpacity={0.8}
-                            onPress={() => setActiveSortItem('popular')}>
-                            <Text style={styles.sortListItemText}>Popular</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={sortStyle(activeSortItem === 'trending')}
-                            activeOpacity={0.8}
-                            onPress={() => setActiveSortItem('trending')}>
-                            <Text style={styles.sortListItemText}>Trending</Text>
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
-            </View>
+                        <View style={{ backgroundColor: COLOR.white, flex: 1 }}>
+                            <FlatList
+                                showsVerticalScrollIndicator={true}
 
+                                data={foodss}
+                                renderItem={({ item }) => <Card food={item} />}
+                            />
+                        </View>
+                    </ScrollView>
+                </View>
+            </TouchableWithoutFeedback>
         </>
     );
 };
+
+const Card = ({ food }) => {
+    return (
+        <TouchableHighlight
+            underlayColor={COLOR.white}
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('DetailsScreen', food)}>
+            <View style={styles.card}>
+                <View style={{ marginBottom: 10 }}>
+                    <Image source={food.image} style={{ height: 130, width: 130, marginLeft: 10, marginTop: 10, borderRadius: 65 }} />
+                </View>
+                <View style={{ alignItems: 'center', marginHorizontal: 20 }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{food.name}</Text>
+                    <View style={{ marginHorizontal: 20 }}>
+                        <Text style={{ fontSize: 14, color: COLOR.black, marginTop: 2 }}>
+                            {food.price}
+                        </Text>
+                    </View>
+                </View>
+                <View
+                    style={{
+                        marginTop: 10,
+                        marginHorizontal: 20,
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                    }}>
+
+                </View>
+            </View>
+        </TouchableHighlight>
+    );
+};
+
 const foods = [
     {
         id: '1',
         name: 'Vogue Beauty',
         city: 'นนทบุรี',
-        price: 'สถานะ ว่าง',
-        image: require('../assets/food1.jpg'),
+        price: '10$',
+        image: require('../assets/food5.jpg'),
     },
     {
         id: '2',
         name: 'Vogue Beauty',
         city: 'นนทบุรี',
-        price: 'สถานะ ว่าง',
-        image: require('../assets/food2.jpg'),
+        price: '5$',
+        image: require('../assets/food6.jpg'),
     },
 
 ];
+
+const foodss = [
+    {
+        id: '1',
+        name: 'Vogue Beauty',
+        city: 'นนทบุรี',
+        price: '10$',
+        image: require('../assets/food7.jpg'),
+    },
+    {
+        id: '2',
+        name: 'Vogue Beauty',
+        city: 'นนทบุรี',
+        price: '5$',
+        image: require('../assets/food3.jpg'),
+    },
+
+];
+
+
+
 const RestaurantCard = ({ restaurant, name }) => {
     return (
         <>

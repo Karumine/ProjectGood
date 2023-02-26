@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView,StatusBar, StyleSheet, FlatList, Modal, Pressable, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, FlatList, Modal, Pressable, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
@@ -246,19 +246,20 @@ const DetailsScreen = ({ navigation, route }) => {
         return (
             <>
                 <StatusBar barStyle='dark-content' />
-                <View >
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={() => {
-                            Alert.alert('Modal has been closed.');
-                            setModalVisible(!modalVisible);
-                        }}>
+                <Animatable.View
+                    animation="fadeInUpBig"
+                >
+                    <View>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                                Alert.alert('Modal has been closed.');
+                                setModalVisible(!modalVisible);
+                            }}>
 
-                        <Animatable.View
-                            animation="fadeInUpBig"
-                        >
+
                             <TouchableOpacity onPress={() => setModalVisible(false)}
                                 style={{
                                     height: "100%",
@@ -274,72 +275,79 @@ const DetailsScreen = ({ navigation, route }) => {
 
                                 </TouchableOpacity>
                             </TouchableOpacity>
-                        </Animatable.View>
 
-                    </Modal>
 
-                </View>
+                        </Modal>
+
+                    </View>
+                </Animatable.View>
             </>
         );
     };
     return (
-        <SafeAreaView style={{ backgroundColor: COLOR.white }}>
-            <View style={styles.header}>
-                <Icon name="arrow-back-ios" size={28} onPress={navigation.goBack} />
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Details</Text>
-            </View>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: 280,
-                    }}>
-                    <Image source={item.image} style={{ height: "100%", width: "100%" }} />
-                </View>
-                {openmodal()}
-                <View style={styles.details}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}>
-                        <Text
-                            style={{ fontSize: 25, fontWeight: 'bold', color: COLOR.white }}>
-                            {item.name}
-                        </Text>
-                        <View style={styles.iconContainer}>
-                            <Icon name="favorite-border" color={COLOR.primary} size={25} />
+        <>
+            <Animatable.View
+                animation="fadeInUpBig"
+            >
+                <SafeAreaView style={{ backgroundColor: COLOR.white }}>
+                    <View style={styles.header}>
+                        <Icon name="arrow-back-ios" size={28} onPress={navigation.goBack} />
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Details</Text>
+                    </View>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <View
+                            style={{
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: 280,
+                            }}>
+                            <Image source={item.image} style={{ height: "100%", width: "100%" }} />
                         </View>
-                    </View>
-                    <Text style={styles.detailsText}>
-                        เมื่อพูดถึง “อาหารเพื่อสุขภาพ” หลายคนอาจนึกถึงเมนูจืดชืด ไร้รสชาติ ไม่ชวนเจริญอาหาร
-                        แต่ถ้าได้เห็นเมนูเหล่านี้รับรองว่าจะต้องเปลี่ยนความคิด
-                        เพราะแต่ละจานมาพร้อมทั้งความอร่อยและประโยชน์เต็มมื้อ
-                        โดยโว้กบิวตี้เอามาฝากกันถึง 30 เมนูดีต่อใจ ดีต่อร่างกาย
-                        เป็นไอเดียให้ทุกคนได้อิ่มอร่อยกับอาหารเพื่อสุขภาพวันละอย่างไม่ซ้ำกันตลอดทั้งเดือน
-                    </Text>
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        numColumns={2}
-                        data={foods}
-                        renderItem={({ item }) => <Card food={item} />}
-                    />
-
-                    <View style={{ marginTop: 40, marginBottom: 40 }}>
-
-                        <TouchableOpacity activeOpacity={0.9} onPress={() => setModalVisible(true)}>
-                            <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
-                                <Text style={{ ...styles.title, color: COLOR.primary }}> จอง </Text>
+                        {openmodal()}
+                        <View style={styles.details}>
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                }}>
+                                <Text
+                                    style={{ fontSize: 25, fontWeight: 'bold', color: COLOR.white }}>
+                                    {item.name}
+                                </Text>
+                                <View style={styles.iconContainer}>
+                                    <Icon name="favorite-border" color={COLOR.primary} size={25} />
+                                </View>
                             </View>
-                        </TouchableOpacity>
+                            <Text style={styles.detailsText}>
+                                เมื่อพูดถึง “อาหารเพื่อสุขภาพ” หลายคนอาจนึกถึงเมนูจืดชืด ไร้รสชาติ ไม่ชวนเจริญอาหาร
+                                แต่ถ้าได้เห็นเมนูเหล่านี้รับรองว่าจะต้องเปลี่ยนความคิด
+                                เพราะแต่ละจานมาพร้อมทั้งความอร่อยและประโยชน์เต็มมื้อ
+                                โดยโว้กบิวตี้เอามาฝากกันถึง 30 เมนูดีต่อใจ ดีต่อร่างกาย
+                                เป็นไอเดียให้ทุกคนได้อิ่มอร่อยกับอาหารเพื่อสุขภาพวันละอย่างไม่ซ้ำกันตลอดทั้งเดือน
+                            </Text>
+                            <FlatList
+                                showsVerticalScrollIndicator={false}
+                                numColumns={2}
+                                data={foods}
+                                renderItem={({ item }) => <Card food={item} />}
+                            />
 
-                    </View>
+                            <View style={{ marginTop: 40, marginBottom: 40 }}>
 
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+                                <TouchableOpacity activeOpacity={0.9} onPress={() => setModalVisible(true)}>
+                                    <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
+                                        <Text style={{ ...styles.title, color: COLOR.primary }}> จอง </Text>
+                                    </View>
+                                </TouchableOpacity>
+
+                            </View>
+
+                        </View>
+                    </ScrollView>
+                </SafeAreaView>
+            </Animatable.View>
+        </>
     );
 };
 export default DetailsScreen;
