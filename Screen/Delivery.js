@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Dimensions, TextInput, TouchableHighlight, Imag
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-import { Fonts } from './constants/Typography';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Mock from './constants/Mock';
 import CategoryMenuItem from './components/CategoryMenuItem';
@@ -12,6 +12,10 @@ import { COLOR } from './constants/color';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { useEffect } from 'react';
 
+const sortStyle = isActive =>
+    isActive
+        ? styles.sortListItem
+        : { ...styles.sortListItem, boederBottomColor: COLOR.white }
 
 const styles = StyleSheet.create({
     container: {
@@ -166,6 +170,56 @@ const styles = StyleSheet.create({
         elevation: 13,
         backgroundColor: COLOR.secondary,
     },
+
+    titleText: {
+        marginLeft: 8,
+        fontSize: 15,
+        lineHeight: 15 * 1.4,
+
+        color: COLOR.back
+    },
+    tagText: {
+        marginLeft: 8,
+        fontSize: 11,
+        lineHeight: 11 * 1.4,
+
+        color: COLOR.grey,
+        marginBottom: 5,
+    },
+    footerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginHorizontal: 8,
+        marginBottom: 6,
+        justifyContent: 'space-between',
+    },
+    rowAndCenter: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    timeAndDistanceContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 5,
+        paddingVertical: 3,
+        backgroundColor: COLOR.primary,
+        borderRadius: 12,
+        marginHorizontal: 3,
+    },
+    timeAndDistanceText: {
+        fontSize: 10,
+        lineHeight: 10 * 1.4,
+
+        color: COLOR.primary,
+    },
+    ratingText: {
+        marginLeft: 5,
+        fontSize: 10,
+        lineHeight: 10 * 1.4,
+
+        color: COLOR.black,
+    },
+
     addtoCartBtn: {
         height: 30,
         width: 30,
@@ -223,7 +277,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        backgroundColor: COLOR.primary,
+        backgroundColor: COLOR.white,
         marginTop: 8,
         elevation: 1,
     },
@@ -236,11 +290,11 @@ const styles = StyleSheet.create({
         height: 40,
     },
     sortListItemText: {
-        color: COLOR.black,
+        color: COLOR.primary,
         fontSize: 13,
         lineHeight: 13 * 1.4,
+        
     },
-
 });
 
 const { width } = Dimensions.get("screen");
@@ -248,6 +302,7 @@ const cardWidth = width / 2 - 20;
 
 const DeliveryScreen = ({ navigation }) => {
     const [activeCategory, setActiveCategory] = useState();
+    const [activeSortItem, setActiveSortItem] = useState('recent');
     return (
         <>
             <StatusBar barStyle='dark-content' />
@@ -325,19 +380,34 @@ const DeliveryScreen = ({ navigation }) => {
                         />
                     </View>
                     <View style={styles.sortListContainer}>
-                        <TouchableOpacity style={styles.sortListItem} activeOpacity={.8}>
+                        <TouchableOpacity
+                            style={sortStyle(activeSortItem === 'recent')}
+                            activeOpacity={0.8}
+                            onPress={() => setActiveSortItem('recent')}>
                             <Text style={styles.sortListItemText}>Recent</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.sortListItem} activeOpacity={.8}>
+                        <TouchableOpacity
+                            style={sortStyle(activeSortItem === 'favorite')}
+                            activeOpacity={0.8}
+                            onPress={() => setActiveSortItem('favorite')}>
                             <Text style={styles.sortListItemText}>Favorite</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.sortListItem} activeOpacity={.8}>
-                            <Text style={styles.sortListItemText}>Raing</Text>
+                        <TouchableOpacity
+                            style={sortStyle(activeSortItem === 'rating')}
+                            activeOpacity={0.8}
+                            onPress={() => setActiveSortItem('rating')}>
+                            <Text style={styles.sortListItemText}>Rating</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.sortListItem} activeOpacity={.8}>
+                        <TouchableOpacity
+                            style={sortStyle(activeSortItem === 'popular')}
+                            activeOpacity={0.8}
+                            onPress={() => setActiveSortItem('popular')}>
                             <Text style={styles.sortListItemText}>Popular</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.sortListItem} activeOpacity={.8}>
+                        <TouchableOpacity
+                            style={sortStyle(activeSortItem === 'trending')}
+                            activeOpacity={0.8}
+                            onPress={() => setActiveSortItem('trending')}>
                             <Text style={styles.sortListItemText}>Trending</Text>
                         </TouchableOpacity>
                     </View>
@@ -357,15 +427,14 @@ const foods = [
     },
     {
         id: '2',
-        name: 'ร้านชายสอง',
-        city: 'Cheese Pizza',
+        name: 'Vogue Beauty',
+        city: 'นนทบุรี',
         price: 'สถานะ ว่าง',
-        image: require('../assets/Res2.jpg'),
+        image: require('../assets/food2.jpg'),
     },
 
-
 ];
-const RestaurantCard = ({ restaurant }) => {
+const RestaurantCard = ({ restaurant, name }) => {
     return (
         <>
             <TouchableOpacity style={styles.container1}>
@@ -373,6 +442,7 @@ const RestaurantCard = ({ restaurant }) => {
                 />
 
             </TouchableOpacity>
+
         </>
     );
 };
