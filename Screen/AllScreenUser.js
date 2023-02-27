@@ -10,6 +10,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import HomeScreen from './home';
 import DeliveryScreen from './Delivery';
 import FavoriteScreen from './FavoriteScreen';
+import AccountUserScreen from './AccountUser';
 
 const COLORS = {
   white: '#FFF',
@@ -93,11 +94,11 @@ const AlluserScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Cart"
-        component={HomeScreen}
+        name="Account"
+        component={AccountUserScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="shopping-cart" color={color} size={28} />
+            <MaterialIcons name="account-circle" size={30} color={color} />
           ),
         }}
       />

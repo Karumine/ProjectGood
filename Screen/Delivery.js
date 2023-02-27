@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Dimensions, TextInput, TouchableHighlight, Imag
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
+import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Mock from './constants/Mock';
@@ -18,7 +19,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const sortStyle = isActive =>
     isActive
         ? styles.sortListItem
-        : { ...styles.sortListItem, boederBottomColor: COLOR.white }
+        : { ...styles.sortListItem, borderBottomColor: COLOR.white }
+
+const { width } = Dimensions.get("screen");
+const cardWidth = width / 2 - 20;
 
 const styles = StyleSheet.create({
     container: {
@@ -165,9 +169,9 @@ const styles = StyleSheet.create({
     },
     card: {
         marginTop: 20,
-        height: 150,
         width: cardWidth,
-        marginHorizontal: 20,
+        height: 140,
+        marginHorizontal: 10,
         marginBottom: 20,
         flexDirection: 'row',
         borderRadius: 15,
@@ -300,12 +304,10 @@ const styles = StyleSheet.create({
     },
 });
 
-const { width } = Dimensions.get("screen");
-const cardWidth = width / 2 - 20;
-
 const DeliveryScreen = ({ navigation }) => {
     const [activeCategory, setActiveCategory] = useState();
     const [activeSortItem, setActiveSortItem] = useState('recent');
+    
 
     return (
         <>
@@ -319,7 +321,7 @@ const DeliveryScreen = ({ navigation }) => {
                                 name="location-outline"
                                 size={28} color="black"
                             />
-                            <Text style={styles.locationText}>Deliverd to</Text>
+                            <Text style={styles.locationText}>Delivery to</Text>
                             <Text style={styles.selectedLocationText}>Home</Text>
                             <MaterialIcons
                                 name="keyboard-arrow-down"
@@ -419,7 +421,7 @@ const DeliveryScreen = ({ navigation }) => {
                         <View style={{ backgroundColor: COLOR.white, flex: 1 }}>
                             <FlatList
                                 showsVerticalScrollIndicator={true}
-
+                                numColumns={2}
                                 data={foodss}
                                 renderItem={({ item }) => <Card food={item} />}
                             />
@@ -437,28 +439,29 @@ const Card = ({ food }) => {
             underlayColor={COLOR.white}
             activeOpacity={0.7}
             onPress={() => navigation.navigate('DetailsScreen', food)}>
+                <Animatable.View
+                        animation="fadeInUpBig"
+                        style={styles.footer}
+                    >
             <View style={styles.card}>
-                <View style={{ marginBottom: 10 }}>
-                    <Image source={food.image} style={{ height: 130, width: 130, marginLeft: 10, marginTop: 10, borderRadius: 65 }} />
+                <View style={{}}>
+                    <Image source={food.image} style={{ marginLeft: 5,height: 100, width: 100, marginTop: 20, borderRadius: 50 }} />
                 </View>
-                <View style={{ alignItems: 'center', marginHorizontal: 20 }}>
-                    <Text style={{ fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{food.name}</Text>
-                    <View style={{ marginHorizontal: 20 }}>
-                        <Text style={{ fontSize: 14, color: COLOR.black, marginTop: 2 }}>
-                            {food.price}
-                        </Text>
+                <View style={{ marginHorizontal: 5 }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{food.nameRestaurant}</Text>
+                    <Text style={{ fontSize: 14, color: COLOR.black, marginTop: 10 }}>{food.namefood}</Text>
+                    <Text style={{ fontSize: 14, color: COLOR.black, marginTop: 10 }}>{food.namefood1}</Text>
+                    <View style={{ flexDirection: 'row'}}>
+                        <Ionicons
+                            name="location-outline"
+                            size={28} color="black"
+                        />
+                        <Text style={{ fontSize: 15, color: COLOR.black, marginTop: 10 }}>{food.city}</Text>
                     </View>
                 </View>
-                <View
-                    style={{
-                        marginTop: 10,
-                        marginHorizontal: 20,
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                    }}>
 
-                </View>
             </View>
+            </Animatable.View>
         </TouchableHighlight>
     );
 };
@@ -484,18 +487,62 @@ const foods = [
 const foodss = [
     {
         id: '1',
-        name: 'Vogue Beauty',
-        city: 'นนทบุรี',
+        nameRestaurant: 'Vogue Beauty',
+        namefood: 'น้ำพริกหนุ่ม ผักต้ม ',
+        namefood1: 'และไข่ต้มยางมะตูม',
+        city: 'เตาปูน',
         price: '10$',
         image: require('../assets/food7.jpg'),
     },
     {
         id: '2',
-        name: 'Vogue Beauty',
-        city: 'นนทบุรี',
+        nameRestaurant: 'ครัวพี่น้อง',
+        namefood: 'สลัดเต้าหู้',
+        city: 'ติวานนท์ ตลาดขวัญ',
         price: '5$',
-        image: require('../assets/food3.jpg'),
+        image: require('../assets/Res2food1.jpg'),
     },
+    {
+        id: '3',
+        nameRestaurant: 'ขนมหวานคลีนๆ',
+        namefood: 'แพนเค้กข้าวโอ๊ต',
+        city: 'ตลาดขวัญ',
+        price: '7$',
+        image: require('../assets/Dessertfood1.jpg'),
+    },
+    {
+        id: '4',
+        nameRestaurant: 'ครัวพี่น้อง',
+        namefood: 'สลัดเต้าหู้',
+        city: 'ติวานนท์ ตลาดขวัญ',
+        price: '5$',
+        image: require('../assets/Res2food1.jpg'),
+    },
+    {
+        id: '5',
+        nameRestaurant: 'ครัวพี่น้อง',
+        namefood: 'สลัดเต้าหู้',
+        city: 'ติวานนท์ ตลาดขวัญ',
+        price: '5$',
+        image: require('../assets/Res2food1.jpg'),
+    },
+    {
+        id: '6',
+        nameRestaurant: 'ครัวพี่น้อง',
+        namefood: 'สลัดเต้าหู้',
+        city: 'ติวานนท์ ตลาดขวัญ',
+        price: '5$',
+        image: require('../assets/Res2food1.jpg'),
+    },
+    {
+        id: '7',
+        nameRestaurant: 'ครัวพี่น้อง',
+        namefood: 'สลัดเต้าหู้',
+        city: 'ติวานนท์ ตลาดขวัญ',
+        price: '5$',
+        image: require('../assets/Res2food1.jpg'),
+    },
+
 
 ];
 

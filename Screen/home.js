@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
         width: cardWidth,
         marginHorizontal: 10,
         marginBottom: 20,
-
         borderRadius: 15,
         elevation: 13,
         backgroundColor: COLOR.secondary,

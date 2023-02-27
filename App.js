@@ -67,9 +67,8 @@ function App() {
             headerShown: false
           }}
         >
-          <Stack.Screen name="AllScreen" component={AllScreen} />
-          <Stack.Screen name="AllScreenOwner" component={AllScreenOwner} />
           <Stack.Screen name="AllScreenUser" component={AllScreenUser} />
+          {/* <Stack.Screen name="AllScreenOwner" component={AllScreenOwner} /> */}
           <Stack.Screen name="AccountUserScreen" component={AccountUserScreen} />
           <Stack.Screen name="AccountOwnerScreen" component={AccountOwnerScreen} />
           <Stack.Screen name="DetailsScreen" component={DetailsScreen} />

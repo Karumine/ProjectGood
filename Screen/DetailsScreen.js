@@ -3,6 +3,8 @@ import { SafeAreaView, StatusBar, StyleSheet, FlatList, Modal, Pressable, Dimens
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
+import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // const PrimaryButton = ({ title, onPress = () => { } }) => {
 //     return (
@@ -242,6 +244,9 @@ const Card = ({ food }) => {
 const DetailsScreen = ({ navigation, route }) => {
     const item = route.params;
     const [modalVisible, setModalVisible] = useState(false);
+    const [CheckPeople, setCheckPeople] = useState(false);
+    const [DateAndTime, setDateAndTime] = useState(false);
+
     const openmodal = () => {
         return (
             <>
@@ -270,8 +275,34 @@ const DetailsScreen = ({ navigation, route }) => {
 
 
                                 <TouchableOpacity activeOpacity={1} style={styles.tabmodal}>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        marginLeft: 20,
+                                        marginTop: 20,
 
-                                    <Text>asdaswdaswd</Text>
+                                    }}>
+                                        <FontAwesome5 name="concierge-bell" size={50} color="white" />
+                                        <Text style={{ fontSize: 30, marginLeft: 20 }}>การจองของคุณ</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                                        <TouchableOpacity style={{ marginTop: 30 }}>
+                                            <FontAwesome
+                                                name="group"
+                                                size={40}
+                                                color="white"
+                                            />
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={{ marginTop: 30 }}>
+                                            <MaterialCommunityIcons
+                                                name="calendar-clock-outline"
+                                                size={40}
+                                                color="white"
+                                            />
+                                        </TouchableOpacity>
+
+                                    </View>
+
 
                                 </TouchableOpacity>
                             </TouchableOpacity>
@@ -327,7 +358,7 @@ const DetailsScreen = ({ navigation, route }) => {
                                 เป็นไอเดียให้ทุกคนได้อิ่มอร่อยกับอาหารเพื่อสุขภาพวันละอย่างไม่ซ้ำกันตลอดทั้งเดือน
                             </Text>
                             <FlatList
-                                showsVerticalScrollIndicator={false}
+                                showsVerticalScrollIndicator={true}
                                 numColumns={2}
                                 data={foods}
                                 renderItem={({ item }) => <Card food={item} />}
