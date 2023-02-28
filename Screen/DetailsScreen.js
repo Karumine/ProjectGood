@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { SafeAreaView, StatusBar, StyleSheet, FlatList, Modal, Pressable, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, FlatList, Modal, TextInput, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { SelectList } from 'react-native-dropdown-select-list'
 // const PrimaryButton = ({ title, onPress = () => { } }) => {
 //     return (
 //         <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
@@ -241,12 +241,37 @@ const Card = ({ food }) => {
     );
 };
 
+const selectDay = [
+    { key: '1', value: 'เลือกจำนวนคน', disabled: true },
+    { key: '2', value: '1 คน' },
+    { key: '3', value: '2 คน' },
+    { key: '4', value: '3 คน' },
+    { key: '5', value: '4 คน' },
+    { key: '6', value: '5 คน' },
+    { key: '7', value: '6 คน' },
+    { key: '7', value: '7 คน' },
+]
+
+const selectTime = [
+    { key: '1', value: 'เลือกจำนวนคน', disabled: true },
+    { key: '2', value: '1 คน' },
+    { key: '3', value: '2 คน' },
+    { key: '4', value: '3 คน' },
+    { key: '5', value: '4 คน' },
+    { key: '6', value: '5 คน' },
+    { key: '7', value: '6 คน' },
+    { key: '8', value: '7 คน' },
+]
+
 const DetailsScreen = ({ navigation, route }) => {
     const item = route.params;
     const [modalVisible, setModalVisible] = useState(false);
-    const [CheckPeople, setCheckPeople] = useState(false);
-    const [DateAndTime, setDateAndTime] = useState(false);
-
+    const [ShowStartTime, setShowStartTime] = useState(false);
+    const [IsSubject, setIsSubject] = useState("");
+    const [Day, setDay] = useState("");
+    const [selectTimeLate, SetSelectTime] = useState("");
+    selectTimeLate
+    ShowStartTime
     const openmodal = () => {
         return (
             <>
@@ -282,103 +307,146 @@ const DetailsScreen = ({ navigation, route }) => {
                                         marginTop: 20,
 
                                     }}>
-                                        <FontAwesome5 name="concierge-bell" size={50} color="white" />
-                                        <Text style={{ fontSize: 30, marginLeft: 20 }}>การจองของคุณ</Text>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                                        <TouchableOpacity style={{ marginTop: 30 }}>
-                                            <FontAwesome
-                                                name="group"
-                                                size={40}
-                                                color="white"
-                                            />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={{ marginTop: 30 }}>
-                                            <MaterialCommunityIcons
-                                                name="calendar-clock-outline"
-                                                size={40}
-                                                color="white"
-                                            />
-                                        </TouchableOpacity>
-
                                     </View>
 
+                                    <ScrollView>
+                                        <View style={{ marginTop: 20, paddingHorizontal: 40 }}>
+                                            <Text style={{ color: COLOR.black, fontSize: 15, marginBottom: 10 }}>
+                                                ชื่อวิชา
+                                            </Text>
+                                            <View style={{ height: 50, backgroundColor: 'white', borderRadius: 25 }}>
+                                                <TextInput
+                                                    style={{ fontSize: 15, flex: 1, marginLeft: 20 }}
+                                                    onChangeText={(text) => setIsSubject(text)}
+                                                >
+                                                </TextInput>
+                                            </View>
+                                        </View>
 
-                                </TouchableOpacity>
+                                        <View style={{ marginTop: 20, flexDirection: 'row',justifyContent:'space-evenly', alignItems:'center' }}>
+                                            <View style={{alignItems:'center'}}>
+                                                <Text style={{ color: COLOR.black, fontSize: 15 }}>
+                                                    จำนวนคน
+                                                </Text>
+
+                                                <View style={{ flex: 1, marginTop: 10 }}>
+                                                    <SelectList
+                                                        data={selectDay}
+                                                        setSelected={setDay}
+                                                        boxStyles={{ alignItems: "center" }}
+                                                        dropdownStyles={{ marginRight: 30,width:"100%" }}
+                                                        inputStyles={[styles.h4, { fontSize: 15, height: 40,width:100, paddingTop: 10 }]}
+                                                        placeholder="⠀"
+                                                        style={{ width: "100%" }}
+                                                    // maxHeight={100}
+                                                    />
+                                                </View>
+                                            </View>
+                                            <View style={{alignItems:'center',}}>
+                                                <Text style={{ color: COLOR.black, fontSize: 15 }}>
+                                                    จำนวนเด็ก
+                                                </Text>
+                                                <View style={{ flex: 1, marginTop: 10 }}>
+                                                    <SelectList
+                                                        data={selectTime}
+                                                        setSelected={SetSelectTime}
+                                                        boxStyles={[styles.boxInputCreateRoom, { alignItems: "center" }]}
+                                                        dropdownStyles={{ marginRight: 30,width:"100%" }}
+                                                        inputStyles={[styles.h4, { alignItems:'center',fontSize: 15, height: 40,width:100, paddingTop: 10 }]}
+                                                        placeholder="⠀"
+                                                        style={{ width: "100%" }}
+                                                    // maxHeight={100}
+                                                    />
+                                                </View>
+                                        </View>
+
+                                    </View>
+
+                                    <View style={{ marginTop: 9, paddingLeft: 25 }}>
+                                        <Text style={[styles.h4, { color: COLOR.black, fontSize: 15 }]}>
+                                            วันและเวลา
+                                        </Text>
+                                        
+                                    </View>
+
+                                </ScrollView>
+
+
                             </TouchableOpacity>
+                        </TouchableOpacity>
 
 
-                        </Modal>
+                    </Modal>
 
-                    </View>
-                </Animatable.View>
+                </View>
+            </Animatable.View>
             </>
         );
     };
-    return (
-        <>
-            <Animatable.View
-                animation="fadeInUpBig"
-            >
-                <SafeAreaView style={{ backgroundColor: COLOR.white }}>
-                    <View style={styles.header}>
-                        <Icon name="arrow-back-ios" size={28} onPress={navigation.goBack} />
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Details</Text>
+return (
+    <>
+        <Animatable.View
+            animation="fadeInUpBig"
+        >
+            <SafeAreaView style={{ backgroundColor: COLOR.white }}>
+                <View style={styles.header}>
+                    <Icon name="arrow-back-ios" size={28} onPress={navigation.goBack} />
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Details</Text>
+                </View>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <View
+                        style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: 280,
+                        }}>
+                        <Image source={item.image} style={{ height: "100%", width: "100%" }} />
                     </View>
-                    <ScrollView showsVerticalScrollIndicator={false}>
+                    {openmodal()}
+                    <View style={styles.details}>
                         <View
                             style={{
-                                justifyContent: 'center',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
                                 alignItems: 'center',
-                                height: 280,
                             }}>
-                            <Image source={item.image} style={{ height: "100%", width: "100%" }} />
-                        </View>
-                        {openmodal()}
-                        <View style={styles.details}>
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                }}>
-                                <Text
-                                    style={{ fontSize: 25, fontWeight: 'bold', color: COLOR.white }}>
-                                    {item.name}
-                                </Text>
-                                <View style={styles.iconContainer}>
-                                    <Icon name="favorite-border" color={COLOR.primary} size={25} />
-                                </View>
-                            </View>
-                            <Text style={styles.detailsText}>
-                                เมื่อพูดถึง “อาหารเพื่อสุขภาพ” หลายคนอาจนึกถึงเมนูจืดชืด ไร้รสชาติ ไม่ชวนเจริญอาหาร
-                                แต่ถ้าได้เห็นเมนูเหล่านี้รับรองว่าจะต้องเปลี่ยนความคิด
-                                เพราะแต่ละจานมาพร้อมทั้งความอร่อยและประโยชน์เต็มมื้อ
-                                โดยโว้กบิวตี้เอามาฝากกันถึง 30 เมนูดีต่อใจ ดีต่อร่างกาย
-                                เป็นไอเดียให้ทุกคนได้อิ่มอร่อยกับอาหารเพื่อสุขภาพวันละอย่างไม่ซ้ำกันตลอดทั้งเดือน
+                            <Text
+                                style={{ fontSize: 25, fontWeight: 'bold', color: COLOR.white }}>
+                                {item.name}
                             </Text>
-                            <FlatList
-                                showsVerticalScrollIndicator={true}
-                                numColumns={2}
-                                data={foods}
-                                renderItem={({ item }) => <Card food={item} />}
-                            />
-
-                            <View style={{ marginTop: 40, marginBottom: 40 }}>
-
-                                <TouchableOpacity activeOpacity={0.9} onPress={() => setModalVisible(true)}>
-                                    <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
-                                        <Text style={{ ...styles.title, color: COLOR.primary }}> จอง </Text>
-                                    </View>
-                                </TouchableOpacity>
-
+                            <View style={styles.iconContainer}>
+                                <Icon name="favorite-border" color={COLOR.primary} size={25} />
                             </View>
+                        </View>
+                        <Text style={styles.detailsText}>
+                            เมื่อพูดถึง “อาหารเพื่อสุขภาพ” หลายคนอาจนึกถึงเมนูจืดชืด ไร้รสชาติ ไม่ชวนเจริญอาหาร
+                            แต่ถ้าได้เห็นเมนูเหล่านี้รับรองว่าจะต้องเปลี่ยนความคิด
+                            เพราะแต่ละจานมาพร้อมทั้งความอร่อยและประโยชน์เต็มมื้อ
+                            โดยโว้กบิวตี้เอามาฝากกันถึง 30 เมนูดีต่อใจ ดีต่อร่างกาย
+                            เป็นไอเดียให้ทุกคนได้อิ่มอร่อยกับอาหารเพื่อสุขภาพวันละอย่างไม่ซ้ำกันตลอดทั้งเดือน
+                        </Text>
+                        <FlatList
+                            showsVerticalScrollIndicator={true}
+                            numColumns={2}
+                            data={foods}
+                            renderItem={({ item }) => <Card food={item} />}
+                        />
+
+                        <View style={{ marginTop: 40, marginBottom: 40 }}>
+
+                            <TouchableOpacity activeOpacity={0.9} onPress={() => setModalVisible(true)}>
+                                <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
+                                    <Text style={{ ...styles.title, color: COLOR.primary }}> จอง </Text>
+                                </View>
+                            </TouchableOpacity>
 
                         </View>
-                    </ScrollView>
-                </SafeAreaView>
-            </Animatable.View>
-        </>
-    );
+
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+        </Animatable.View>
+    </>
+);
 };
 export default DetailsScreen;

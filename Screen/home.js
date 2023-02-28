@@ -290,9 +290,7 @@ export default function HomeScreen({ navigation }) {
                                 </Text>
                             </View>
 
-                            <TouchableOpacity onPress={() => navigation.navigate('AccountUserScreen')}>
-                                <MaterialIcons name="account-circle" size={60} color="red" />
-                            </TouchableOpacity>
+                            
                         </View>
                         <View style={{
                             marginTop: 40,
