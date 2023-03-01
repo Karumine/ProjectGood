@@ -69,7 +69,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: COLOR.white,
     },
-    title: { color: COLOR.white, fontWeight: 'bold', fontSize: 18 },
+    title: {
+        color: COLOR.white,
+        fontWeight: 'bold',
+        fontSize: 18
+    },
     btnContainer: {
         backgroundColor: COLOR.primary,
         height: 60,
@@ -173,15 +177,12 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 25,
         color: 'white',
-        padding: 3,
-        marginBottom: 10,
-        textAlign: 'center'
+        textAlign: 'center',
+        width: '80%',
     },
 
     // Style for iOS ONLY...
     datePicker: {
-        justifyContent: 'center',
-        alignItems: 'center',
         width: 200,
         height: 50,
         display: 'flex',
@@ -320,6 +321,7 @@ const DetailsScreen = ({ navigation, route }) => {
         setTime(value);
         setTimePicker(false);
     };
+
     const openmodal = () => {
         return (
             <>
@@ -411,48 +413,67 @@ const DetailsScreen = ({ navigation, route }) => {
                                         </View>
 
                                         <View style={{ backgroundColor: COLOR.primary }}>
-                                            <View style={{ marginTop: 9, paddingLeft: 25 }}>
+                                            <View style={{ marginTop: 9, marginTop: 25, marginHorizontal: 20, alignItems: 'center' }}>
                                                 <Text style={[styles.h4, { color: COLOR.black, fontSize: 15 }]}>
-                                                    วันและเวลาที่จอง
+                                                    วันที่จอง
                                                 </Text>
-
-
                                             </View>
-                                            <TouchableOpacity onPress={showDatePicker}>
-                                                <Text style={styles.text}>
-                                                    Date = {date.toDateString()}
-                                                </Text>
-                                            </TouchableOpacity>
-
-                                            <TouchableOpacity onPress={showTimePicker}>
-                                                <Text style={styles.text}>
-                                                    Time = {time.toLocaleTimeString('en-US')}
-                                                </Text>
-                                            </TouchableOpacity>
-
-                                            {datePicker && (
-                                                <DateTimePicker
-                                                    value={date}
-                                                    mode={'date'}
-                                                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                                                    is24Hour={true}
-                                                    onChange={onDateSelected}
-                                                    style={styles.datePicker}
-                                                />
-                                            )}
-
-                                            {timePicker && (
-                                                <DateTimePicker
-                                                    value={time}
-                                                    mode={'time'}
-                                                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                                                    is24Hour={false}
-                                                    onChange={onTimeSelected}
-                                                    style={styles.datePicker}
-                                                />
-                                            )}
+                                            <View>
+                                                <View style={{ alignItems: 'center' }}>
+                                                    <TouchableOpacity onPress={showDatePicker}>
+                                                        <Text style={styles.text}>
+                                                            Date = {date.toDateString()}
+                                                        </Text>
+                                                    </TouchableOpacity>
+                                                </View>
+                                                <View style={{ marginLeft: 50 }}>
+                                                    {datePicker && (
+                                                        <DateTimePicker
+                                                            value={date}
+                                                            mode={'date'}
+                                                            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                                            is24Hour={true}
+                                                            onChange={onDateSelected}
+                                                            style={[styles.datePicker]}
+                                                        />
+                                                    )}
+                                                </View>
+                                                <View style={{ marginTop: 9, marginTop: 25, marginHorizontal: 20, alignItems: 'center' }}>
+                                                    <Text style={{ color: COLOR.black, fontSize: 15 }}>
+                                                        เวลาที่จอง
+                                                    </Text>
+                                                </View>
+                                                <View style={{ alignItems: 'center' }}>
+                                                    <TouchableOpacity onPress={showTimePicker}>
+                                                        <Text style={styles.text}>
+                                                            Time = {time.toLocaleTimeString('en-US')}
+                                                        </Text>
+                                                    </TouchableOpacity>
+                                                </View>
+                                                <View style={{ marginLeft: 10 }}>
+                                                    {timePicker && (
+                                                        <DateTimePicker
+                                                            value={time}
+                                                            mode={'time'}
+                                                            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                                            is24Hour={true}
+                                                            onChange={onTimeSelected}
+                                                            style={[styles.datePicker, { flex: 1 }]}
+                                                        />
+                                                    )}
+                                                </View>
+                                            </View>
 
                                         </View>
+
+                                        <View style={{ marginTop: 40, marginBottom: 40, width: '80%', marginHorizontal: 35 }}>
+                                            <TouchableOpacity activeOpacity={0.9}>
+                                                <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
+                                                    <Text style={{ ...styles.title, color: COLOR.primary }}>ยืนยันการจอง</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+
                                     </ScrollView>
                                 </TouchableOpacity>
                             </TouchableOpacity>
