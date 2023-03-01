@@ -16,6 +16,7 @@ import AccountOwnerScreen from './Screen/AccountOwner';
 import DetailsScreen from './Screen/DetailsScreen';
 import DeliveryScreen from './Screen/Delivery';
 import FavoriteScreen from './Screen/FavoriteScreen';
+import ModalReservation from './Screen/reservation';
 
 const Stack = createNativeStackNavigator();
 
@@ -75,6 +76,7 @@ function App() {
           <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
           <Stack.Screen name="DeliveryScreen" component={DeliveryScreen} />
           <Stack.Screen name="FavoriteScreen" component={FavoriteScreen} />
+          <Stack.Screen name="ModalReservation" component={ModalReservation} />
           
           
         </Stack.Navigator>

@@ -299,11 +299,8 @@ const DetailsScreen = ({ navigation, route }) => {
     const [datePicker, setDatePicker] = useState(false);
 
     const [date, setDate] = useState(new Date());
-
     const [timePicker, setTimePicker] = useState(false);
-
     const [time, setTime] = useState(new Date(Date.now()));
-
     function showDatePicker() {
         setDatePicker(true);
     };
@@ -337,6 +334,7 @@ const DetailsScreen = ({ navigation, route }) => {
                             onRequestClose={() => {
                                 Alert.alert('Modal has been closed.');
                                 setModalVisible(!modalVisible);
+                                console.log('modal',modalVisible);
                             }}>
 
 
@@ -467,7 +465,8 @@ const DetailsScreen = ({ navigation, route }) => {
                                         </View>
 
                                         <View style={{ marginTop: 40, marginBottom: 40, width: '80%', marginHorizontal: 35 }}>
-                                            <TouchableOpacity activeOpacity={0.9}>
+                                            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}
+                                            activeOpacity={0.9}>
                                                 <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
                                                     <Text style={{ ...styles.title, color: COLOR.primary }}>ยืนยันการจอง</Text>
                                                 </View>
@@ -486,6 +485,9 @@ const DetailsScreen = ({ navigation, route }) => {
             </>
         );
     };
+
+
+
     return (
         <>
             <Animatable.View
