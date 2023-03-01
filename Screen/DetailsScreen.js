@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { SafeAreaView, StatusBar, StyleSheet, FlatList, Modal, TextInput, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Button, FlatList, Modal, TextInput, Dimensions, TouchableOpacity, TouchableHighlight, View, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SelectList } from 'react-native-dropdown-select-list'
@@ -162,6 +163,30 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
     },
+    MainContainer: {
+        flex: 1,
+        padding: 6,
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+
+    text: {
+        fontSize: 25,
+        color: 'white',
+        padding: 3,
+        marginBottom: 10,
+        textAlign: 'center'
+    },
+
+    // Style for iOS ONLY...
+    datePicker: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 200,
+        height: 50,
+        display: 'flex',
+
+    },
 });
 
 const foods = [
@@ -270,8 +295,31 @@ const DetailsScreen = ({ navigation, route }) => {
     const [IsSubject, setIsSubject] = useState("");
     const [Day, setDay] = useState("");
     const [selectTimeLate, SetSelectTime] = useState("");
-    selectTimeLate
-    ShowStartTime
+    const [datePicker, setDatePicker] = useState(false);
+
+    const [date, setDate] = useState(new Date());
+
+    const [timePicker, setTimePicker] = useState(false);
+
+    const [time, setTime] = useState(new Date(Date.now()));
+
+    function showDatePicker() {
+        setDatePicker(true);
+    };
+
+    function showTimePicker() {
+        setTimePicker(true);
+    };
+
+    function onDateSelected(event, value) {
+        setDate(value);
+        setDatePicker(false);
+    };
+
+    function onTimeSelected(event, value) {
+        setTime(value);
+        setTimePicker(false);
+    };
     const openmodal = () => {
         return (
             <>
@@ -312,7 +360,7 @@ const DetailsScreen = ({ navigation, route }) => {
                                     <ScrollView>
                                         <View style={{ marginTop: 20, paddingHorizontal: 40 }}>
                                             <Text style={{ color: COLOR.black, fontSize: 15, marginBottom: 10 }}>
-                                                ชื่อวิชา
+                                                ชื่อคนจอง
                                             </Text>
                                             <View style={{ height: 50, backgroundColor: 'white', borderRadius: 25 }}>
                                                 <TextInput
@@ -323,8 +371,8 @@ const DetailsScreen = ({ navigation, route }) => {
                                             </View>
                                         </View>
 
-                                        <View style={{ marginTop: 20, flexDirection: 'row',justifyContent:'space-evenly', alignItems:'center' }}>
-                                            <View style={{alignItems:'center'}}>
+                                        <View style={{ marginTop: 20, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                            <View style={{ alignItems: 'center' }}>
                                                 <Text style={{ color: COLOR.black, fontSize: 15 }}>
                                                     จำนวนคน
                                                 </Text>
@@ -333,16 +381,16 @@ const DetailsScreen = ({ navigation, route }) => {
                                                     <SelectList
                                                         data={selectDay}
                                                         setSelected={setDay}
-                                                        boxStyles={{ alignItems: "center" }}
-                                                        dropdownStyles={{ marginRight: 30,width:"100%" }}
-                                                        inputStyles={[styles.h4, { fontSize: 15, height: 40,width:100, paddingTop: 10 }]}
+                                                        boxStyles={{ alignItems: "center", backgroundColor: 'white' }}
+                                                        dropdownStyles={{ marginRight: 30, width: "100%", backgroundColor: 'white' }}
+                                                        inputStyles={[styles.h4, { alignItems: 'center', fontSize: 15, height: 40, width: 80, paddingVertical: 10, paddingHorizontal: 10 }]}
                                                         placeholder="⠀"
                                                         style={{ width: "100%" }}
                                                     // maxHeight={100}
                                                     />
                                                 </View>
                                             </View>
-                                            <View style={{alignItems:'center',}}>
+                                            <View style={{ alignItems: 'center', }}>
                                                 <Text style={{ color: COLOR.black, fontSize: 15 }}>
                                                     จำนวนเด็ก
                                                 </Text>
@@ -350,103 +398,137 @@ const DetailsScreen = ({ navigation, route }) => {
                                                     <SelectList
                                                         data={selectTime}
                                                         setSelected={SetSelectTime}
-                                                        boxStyles={[styles.boxInputCreateRoom, { alignItems: "center" }]}
-                                                        dropdownStyles={{ marginRight: 30,width:"100%" }}
-                                                        inputStyles={[styles.h4, { alignItems:'center',fontSize: 15, height: 40,width:100, paddingTop: 10 }]}
+                                                        boxStyles={[styles.boxInputCreateRoom, { alignItems: "center", backgroundColor: 'white' }]}
+                                                        dropdownStyles={{ marginRight: 30, width: "100%", backgroundColor: 'white' }}
+                                                        inputStyles={[styles.h4, { alignItems: 'center', fontSize: 15, height: 40, width: 80, paddingVertical: 10, paddingHorizontal: 10, }]}
                                                         placeholder="⠀"
                                                         style={{ width: "100%" }}
                                                     // maxHeight={100}
                                                     />
                                                 </View>
+                                            </View>
+
                                         </View>
 
-                                    </View>
-
-                                    <View style={{ marginTop: 9, paddingLeft: 25 }}>
-                                        <Text style={[styles.h4, { color: COLOR.black, fontSize: 15 }]}>
-                                            วันและเวลา
-                                        </Text>
-                                        
-                                    </View>
-
-                                </ScrollView>
+                                        <View style={{ backgroundColor: COLOR.primary }}>
+                                            <View style={{ marginTop: 9, paddingLeft: 25 }}>
+                                                <Text style={[styles.h4, { color: COLOR.black, fontSize: 15 }]}>
+                                                    วันและเวลาที่จอง
+                                                </Text>
 
 
+                                            </View>
+                                            <TouchableOpacity onPress={showDatePicker}>
+                                                <Text style={styles.text}>
+                                                    Date = {date.toDateString()}
+                                                </Text>
+                                            </TouchableOpacity>
+
+                                            <TouchableOpacity onPress={showTimePicker}>
+                                                <Text style={styles.text}>
+                                                    Time = {time.toLocaleTimeString('en-US')}
+                                                </Text>
+                                            </TouchableOpacity>
+
+                                            {datePicker && (
+                                                <DateTimePicker
+                                                    value={date}
+                                                    mode={'date'}
+                                                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                                    is24Hour={true}
+                                                    onChange={onDateSelected}
+                                                    style={styles.datePicker}
+                                                />
+                                            )}
+
+                                            {timePicker && (
+                                                <DateTimePicker
+                                                    value={time}
+                                                    mode={'time'}
+                                                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                                    is24Hour={false}
+                                                    onChange={onTimeSelected}
+                                                    style={styles.datePicker}
+                                                />
+                                            )}
+
+                                        </View>
+                                    </ScrollView>
+                                </TouchableOpacity>
                             </TouchableOpacity>
-                        </TouchableOpacity>
 
 
-                    </Modal>
+                        </Modal>
 
-                </View>
-            </Animatable.View>
+                    </View>
+                </Animatable.View>
             </>
         );
     };
-return (
-    <>
-        <Animatable.View
-            animation="fadeInUpBig"
-        >
-            <SafeAreaView style={{ backgroundColor: COLOR.white }}>
-                <View style={styles.header}>
-                    <Icon name="arrow-back-ios" size={28} onPress={navigation.goBack} />
-                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Details</Text>
-                </View>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <View
-                        style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            height: 280,
-                        }}>
-                        <Image source={item.image} style={{ height: "100%", width: "100%" }} />
+    return (
+        <>
+            <Animatable.View
+                animation="fadeInUpBig"
+            >
+                <SafeAreaView style={{ backgroundColor: COLOR.white }}>
+                    <View style={styles.header}>
+                        <Icon name="arrow-back-ios" size={28} onPress={navigation.goBack} />
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Details</Text>
                     </View>
-                    {openmodal()}
-                    <View style={styles.details}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         <View
                             style={{
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
+                                justifyContent: 'center',
                                 alignItems: 'center',
+                                height: 280,
                             }}>
-                            <Text
-                                style={{ fontSize: 25, fontWeight: 'bold', color: COLOR.white }}>
-                                {item.name}
-                            </Text>
-                            <View style={styles.iconContainer}>
-                                <Icon name="favorite-border" color={COLOR.primary} size={25} />
-                            </View>
+                            <Image source={item.image} style={{ height: "100%", width: "100%" }} />
                         </View>
-                        <Text style={styles.detailsText}>
-                            เมื่อพูดถึง “อาหารเพื่อสุขภาพ” หลายคนอาจนึกถึงเมนูจืดชืด ไร้รสชาติ ไม่ชวนเจริญอาหาร
-                            แต่ถ้าได้เห็นเมนูเหล่านี้รับรองว่าจะต้องเปลี่ยนความคิด
-                            เพราะแต่ละจานมาพร้อมทั้งความอร่อยและประโยชน์เต็มมื้อ
-                            โดยโว้กบิวตี้เอามาฝากกันถึง 30 เมนูดีต่อใจ ดีต่อร่างกาย
-                            เป็นไอเดียให้ทุกคนได้อิ่มอร่อยกับอาหารเพื่อสุขภาพวันละอย่างไม่ซ้ำกันตลอดทั้งเดือน
-                        </Text>
-                        <FlatList
-                            showsVerticalScrollIndicator={true}
-                            numColumns={2}
-                            data={foods}
-                            renderItem={({ item }) => <Card food={item} />}
-                        />
-
-                        <View style={{ marginTop: 40, marginBottom: 40 }}>
-
-                            <TouchableOpacity activeOpacity={0.9} onPress={() => setModalVisible(true)}>
-                                <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
-                                    <Text style={{ ...styles.title, color: COLOR.primary }}> จอง </Text>
+                        {openmodal()}
+                        <View style={styles.details}>
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                }}>
+                                <Text
+                                    style={{ fontSize: 25, fontWeight: 'bold', color: COLOR.white }}>
+                                    {item.name}
+                                </Text>
+                                <View style={styles.iconContainer}>
+                                    <Icon name="favorite-border" color={COLOR.primary} size={25} />
                                 </View>
-                            </TouchableOpacity>
+                            </View>
+                            <Text style={styles.detailsText}>
+                                เมื่อพูดถึง “อาหารเพื่อสุขภาพ” หลายคนอาจนึกถึงเมนูจืดชืด ไร้รสชาติ ไม่ชวนเจริญอาหาร
+                                แต่ถ้าได้เห็นเมนูเหล่านี้รับรองว่าจะต้องเปลี่ยนความคิด
+                                เพราะแต่ละจานมาพร้อมทั้งความอร่อยและประโยชน์เต็มมื้อ
+                                โดยโว้กบิวตี้เอามาฝากกันถึง 30 เมนูดีต่อใจ ดีต่อร่างกาย
+                                เป็นไอเดียให้ทุกคนได้อิ่มอร่อยกับอาหารเพื่อสุขภาพวันละอย่างไม่ซ้ำกันตลอดทั้งเดือน
+                            </Text>
+                            <FlatList
+                                showsVerticalScrollIndicator={true}
+                                numColumns={2}
+                                data={foods}
+                                renderItem={({ item }) => <Card food={item} />}
+                            />
+
+                            <View style={{ marginTop: 40, marginBottom: 40 }}>
+
+                                <TouchableOpacity activeOpacity={0.9} onPress={() => setModalVisible(true)}>
+                                    <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
+                                        <Text style={{ ...styles.title, color: COLOR.primary }}> จอง </Text>
+                                    </View>
+                                </TouchableOpacity>
+
+                            </View>
 
                         </View>
-
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
-        </Animatable.View>
-    </>
-);
+                    </ScrollView>
+                </SafeAreaView>
+            </Animatable.View>
+        </>
+    );
 };
 export default DetailsScreen;

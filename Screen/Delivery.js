@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     card: {
         marginTop: 20,
         width: cardWidth,
-        height: 140,
+        height: 120,
         marginHorizontal: 10,
         marginBottom: 20,
         flexDirection: 'row',
@@ -445,18 +445,18 @@ const Card = ({ food }) => {
                     >
             <View style={styles.card}>
                 <View style={{}}>
-                    <Image source={food.image} style={{ marginLeft: 5,height: 100, width: 100, marginTop: 20, borderRadius: 50 }} />
+                    <Image source={food.image} style={{ marginLeft: 5,height: 50, width: 50, marginTop: 20, borderRadius: 25 }} />
                 </View>
-                <View style={{ marginHorizontal: 5 }}>
-                    <Text style={{ fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{food.nameRestaurant}</Text>
-                    <Text style={{ fontSize: 14, color: COLOR.black, marginTop: 10 }}>{food.namefood}</Text>
-                    <Text style={{ fontSize: 14, color: COLOR.black, marginTop: 10 }}>{food.namefood1}</Text>
-                    <View style={{ flexDirection: 'row'}}>
+                <View style={{ marginHorizontal: 10 }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', marginTop: 10 }}>{food.nameRestaurant}</Text>
+                    <Text style={{ fontSize: 13, color: COLOR.black, marginTop: 10 }}>{food.namefood}</Text>
+                    <Text style={{ fontSize: 13, color: COLOR.black, marginTop: 10 }}>{food.namefood1}</Text>
+                    <View style={{ flexDirection: 'row', marginTop:10,alignItems:'center'}}>
                         <Ionicons
                             name="location-outline"
-                            size={28} color="black"
+                            size={20} color="black"
                         />
-                        <Text style={{ fontSize: 15, color: COLOR.black, marginTop: 10 }}>{food.city}</Text>
+                        <Text style={{ fontSize: 12, color: COLOR.black}}>{food.city}</Text>
                     </View>
                 </View>
 
