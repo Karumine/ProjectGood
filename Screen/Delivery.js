@@ -15,7 +15,6 @@ import { useEffect } from 'react';
 import { RestaurantMediumCard } from './components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-
 const sortStyle = isActive =>
     isActive
         ? styles.sortListItem
@@ -543,10 +542,7 @@ const foodss = [
         image: require('../assets/Res2food1.jpg'),
     },
 
-
 ];
-
-
 
 const RestaurantCard = ({ restaurant, name }) => {
     return (

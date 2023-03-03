@@ -10,6 +10,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import uuid from 'uuid-random';
+import { FlatList } from "react-native-gesture-handler";
 
 const Tab = createMaterialBottomTabNavigator();
 const { height } = Dimensions.get("screen");
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     formContainer: {
-        flexDirection: 'row',
+
         height: 80,
         marginLeft: 10,
         marginRight: 10,
@@ -106,6 +108,13 @@ const HomeScreenOwner = ({ navigation }) => {
     const isuser = firebase.auth().currentUser
     console.log('isuser', isuser);
     const [addData, setAddData] = useState('');
+    const [item, setItem] = useState([
+        { id: uuid(), text: 'คุณ not TimeReservation 16.19' },
+        { id: uuid(), text: 'คุณ 1 TimeReservation 17.19' },
+        { id: uuid(), text: 'คุณ 2 TimeReservation 11.19' },
+        { id: uuid(), text: 'คุณ 3 TimeReservation 12.19' },
+
+    ])
 
     // add new field
     const addField = async () => {
@@ -154,31 +163,33 @@ const HomeScreenOwner = ({ navigation }) => {
                                 <MaterialIcons name="account-circle" size={60} color="red" />
                             </TouchableOpacity>
                         </View>
-                        <View>
+                        <View style={{ alignItems: 'center' }}>
                             <Image source={require('../assets/Res1.jpg')} style={{
                                 height: '50%',
-                                width: '90%',
+                                width: '100%',
                                 marginTop: 20,
                             }} />
-                        </View>
-                        <View style={styles.formContainer}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder='ชื่อร้านอาหาร'
-                                placeholderTextColor='#aaaaaa'
-                                onChangeText={(NameFood) => setAddData(NameFood)}
-                                value={addData}
-                                multiline={true}
-                                underlineColorAndroid='transparent'
-                                autoCapitalize='none'
-                            />
+                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>รายชื่อคนจองร้าน</Text>
+                            <View style={{ flex: 1, marginTop: 20, borderWidth: 2, borderColor: 'red' }}>
+
+                                <Text style={{ fontSize: 20 }}>
+                                    ชื่อผู้ใช้ : Not
+                                </Text>
+                                <Text style={{ fontSize: 20 }}>
+                                    จำนวนคน : 2 คน จำนวนเด็ก : 1 คน
+                                </Text>
+                                <Text style={{ fontSize: 20 }}>
+                                    วันและเวลา : Day = Wed Mar 15 2023 Time 06.34.29 PM
+                                </Text>
+                                
+                            </View>
 
                         </View>
-
-                        <TouchableOpacity style={styles.button} onPress={() => addField()}>
-                            <Text style={styles.buttonText}>Add</Text>
-                        </TouchableOpacity>
+                        
                     </Animatable.View>
+
+
+
                 </View>
             </TouchableWithoutFeedback>
         </>

@@ -94,7 +94,7 @@ export default function AccountScreen({ navigation }) {
             >
 
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={() => navigation.navigate('AllScreenOwner')}
+                    <TouchableOpacity onPress={() => navigation.navigate('AllOwnerScreen')}
                         style={[styles.textSignin,]}>
                         <LinearGradient colors={['#FF0066', '#FF0000']} style={styles.textSignin}>
 

@@ -6,10 +6,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { MaterialIcons } from '@expo/vector-icons'; 
+import { MaterialIcons,Ionicons } from '@expo/vector-icons'; 
 import HomeScreen from './home';
 import DeliveryScreen from './Delivery';
-import FavoriteScreen from './FavoriteScreen';
+import FavoriteScreen from './ReservationScreen';
 import AccountUserScreen from './AccountUser';
 
 const COLORS = {
@@ -85,11 +85,11 @@ const AlluserScreen = () => {
         }}
       />
       <Tab.Screen
-        name="FavoriteScreen"
+        name="ListReservationScreen"
         component={FavoriteScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="favorite" color={color} size={28} />
+            <Ionicons name="restaurant" size={24} color={color} />
           ),
         }}
       />

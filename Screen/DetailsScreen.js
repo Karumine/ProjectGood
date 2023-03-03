@@ -465,7 +465,7 @@ const DetailsScreen = ({ navigation, route }) => {
                                         </View>
 
                                         <View style={{ marginTop: 40, marginBottom: 40, width: '80%', marginHorizontal: 35 }}>
-                                            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}
+                                            <TouchableOpacity onPress={() => navigation.navigate('success')}
                                             activeOpacity={0.9}>
                                                 <View style={{ ...styles.btnContainer, backgroundColor: COLOR.white }}>
                                                     <Text style={{ ...styles.title, color: COLOR.primary }}>ยืนยันการจอง</Text>

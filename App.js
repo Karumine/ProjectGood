@@ -15,8 +15,9 @@ import AccountUserScreen from './Screen/AccountUser';
 import AccountOwnerScreen from './Screen/AccountOwner';
 import DetailsScreen from './Screen/DetailsScreen';
 import DeliveryScreen from './Screen/Delivery';
-import FavoriteScreen from './Screen/FavoriteScreen';
-import ModalReservation from './Screen/reservation';
+import ReservationScreen from './Screen/ReservationScreen';
+import success from './Screen/Success';
+import AllScreenOwner from './Screen/AllScreenOwner'
 
 const Stack = createNativeStackNavigator();
 
@@ -42,8 +43,8 @@ function App() {
     fechdata()
   })
   if (initializing)
-  return null
-  if(!user){
+    return null
+  if (!user) {
     return (
       <NavigationContainer>
         <Stack.Navigator
@@ -61,28 +62,30 @@ function App() {
       </NavigationContainer>
     );
   }
-    return (
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false
-          }}
-        >
-          <Stack.Screen name="AllScreenUser" component={AllScreenUser} />
-          
-          {/* <Stack.Screen name="AllScreenOwner" component={AllScreenOwner} /> */}
-          <Stack.Screen name="AccountUserScreen" component={AccountUserScreen} />
-          <Stack.Screen name="AccountOwnerScreen" component={AccountOwnerScreen} />
-          <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
-          <Stack.Screen name="DeliveryScreen" component={DeliveryScreen} />
-          <Stack.Screen name="FavoriteScreen" component={FavoriteScreen} />
-          <Stack.Screen name="ModalReservation" component={ModalReservation} />
-          
-          
-        </Stack.Navigator>
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false
+        }}
+      >
 
-      </NavigationContainer>
-    );
+        <Stack.Screen name="AllScreenUser" component={AllScreenUser} />
+
+        <Stack.Screen name="AllScreenOwner" component={AllScreenOwner} />
+        <Stack.Screen name="AccountUserScreen" component={AccountUserScreen} />
+        <Stack.Screen name="AccountOwnerScreen" component={AccountOwnerScreen} />
+        <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+        <Stack.Screen name="DeliveryScreen" component={DeliveryScreen} />
+        <Stack.Screen name="success" component={success} />
+        <Stack.Screen name="ReservationScreen" component={ReservationScreen} />
+
+
+
+      </Stack.Navigator>
+
+    </NavigationContainer>
+  );
 }
 
 export default App;
