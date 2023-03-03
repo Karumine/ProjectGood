@@ -179,13 +179,15 @@ const HomeScreenOwner = ({ navigation }) => {
                                     จำนวนคน : 2 คน จำนวนเด็ก : 1 คน
                                 </Text>
                                 <Text style={{ fontSize: 20 }}>
-                                    วันและเวลา : Day = Wed Mar 15 2023 Time 06.34.29 PM
+                                    วัน : Day = Wed Mar 15 2023
                                 </Text>
-                                
+                                <Text style={{ fontSize: 20 }}>
+                                    เวลา :Time 06.34.29 PM
+                                </Text>
                             </View>
 
                         </View>
-                        
+
                     </Animatable.View>
 
 
